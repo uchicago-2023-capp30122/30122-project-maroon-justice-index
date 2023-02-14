@@ -21,12 +21,12 @@ def scrape_idhs_page():
     """
 
     d = {}
+    idhs_list = []    
 
-    with open("webscraping/idhs_page.html.aspx") as fh:
+    with open("idhs_page.html.aspx") as fh:
         html = fh.read()
     
-    elem = lxml.html.fromstring(html_text)
-
+    elem = lxml.html.fromstring(html)
     office_list = elem[1].xpath("//ol[@id='OfficeList']")[0]
 
     for li in office_list:
@@ -39,13 +39,16 @@ def scrape_idhs_page():
         except ValueError:
             note = ""
 
-        d[name] = {"Name": name,
-                   "Type": office_type,
-                   "Address": address,
-                   "Contact": phones,
-                   "Note": note}
-    
-    return d
+        d = {"Name": name, "Type": office_type, "Address": address,
+             "Contact": phones, "Note": note}
+        
+        idhs_list.append(d)
+
+    with open("idhs.json", "w") as fj:
+        json.dump(idhs_list, fj, indent=1)
+
+
+    # return idhs_list
 
 
 
