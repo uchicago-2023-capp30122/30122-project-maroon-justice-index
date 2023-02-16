@@ -2,15 +2,12 @@
 # visit http://127.0.0.1:8050/ in your web browser.
 
 from dash import Dash, html, dcc
+import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
 import numpy as np
 
-external_stylesheets = [
-    "https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
-]
-
-app = Dash(__name__, external_stylesheets=external_stylesheets)
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # ------------------ data and map here --------------------------------
 
@@ -18,12 +15,12 @@ neighborhoods = "https://raw.githubusercontent.com/blackmad/neighborhoods/master
 
 # generate some data for each region defined in geojson...
 df = pd.DataFrame(
-    {"fips": range(1, 77, 1), "unemp": np.random.uniform(0.4, 10.4, 76)}
+    {"neighborhood": range(1, 77, 1), "period_pov_index": np.random.uniform(0.4, 10.4, 76)}
 )
 
 fig = px.choropleth_mapbox(df, geojson = neighborhoods, 
-                           locations = "fips",
-                           color="unemp",
+                           locations = "neighborhood",
+                           color="period_pov_index",
                            color_continuous_scale="Viridis",
                            range_color=(0, 12),
                            featureidkey="properties.cartodb_id",
@@ -41,21 +38,47 @@ fig.show()
 
 # ------------------ html page layout here ----------------------------
 
-app.layout = html.Div(children=[
-    html.H1('A Map of Chicago Neighborhoods', style={'text-align':'center'}),
-    html.P('This is a paragraph introducing stuff\nhow do i start a new line'),
+app.layout = dbc.Container([
 
-    html.Div('''
-        With randomly generated data
-    '''),
+    # header
+    dbc.Row([
+        dbc.Col([
+            html.H1('Mapping Period Poverty in Chicago', style={'text-align':'center'}),
+            html.P('Betty Fang, Diamon Dunlap, Ivanna Rodríguez, Jimena Salinas', style={'text-align':'center', 'font-style':'italic'}),
+        ], width=12, align='end') # align supposed to add padding but not working
+    ]),
 
-    dcc.Graph(
-        id='graph',
-        figure = fig
-    )
+    # intro
+    dbc.Row([
+        dbc.Col([
+            html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            html.Br(), 'now I am adding a new line break but does this text appear??']),
+        ], width=12) # 12 is maximum you can take
+    ]),
 
-], style={'marginLeft': 60, 'marginTop': 60})
+    # index methodology (?)
 
+
+    # index map
+    dbc.Row([
+        dbc.Col([
+            dcc.Graph(
+                id='graph',
+                figure = fig)
+        ], width=12)
+    ]),
+
+    # community centers text
+    dbc.Row([
+        dbc.Col([
+            html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            ])
+        ], width = 12, align='end') # how do u add padding...?
+    ])
+
+    # community centers map
+
+], className="pad-row")
 
 
 
