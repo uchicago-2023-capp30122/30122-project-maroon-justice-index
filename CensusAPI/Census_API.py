@@ -19,7 +19,6 @@ class CensusAPI:
 
         #identify columns that are found in the subject tables
         subject_columns, macro_columns = self.classify_columns(cols)
-        print(macro_columns)
 
         full_url_macro = f'{self.base_url_macro_table}?get={macro_columns}&for={geo}&in=state:{state}&key={self.census_key}'
         data_response_macro = requests.get(full_url_macro)
@@ -42,14 +41,28 @@ class CensusAPI:
         df = df.astype(
             dtype={
             "total_female": 'int64', 
-            "total_female_10_to_14": 'int64'
+            "total_female_10_to_14": 'int64',
+            "total_female_15_to_17": 'int64',
+            "total_female_18_to_19": 'int64',
+            "total_female_20": 'int64',
+            "total_female_21": 'int64',
+            "total_female_22_to_24": 'int64',
+            "total_female_25_to_29": 'int64',
+            "total_female_30_to_34": 'int64',
+            "total_female_35_to_39": 'int64',
+            "total_female_40_to_44": 'int64'
             }
         )
-        # df = df.assign(
-        #     internet_rate = 100 * (df.tot_hhld_int / df.tot_hhld),
-        #     emp_rate_25_64 = 100 - df.unemp_rate_25_64,
-        #     above_pov_rate = 100 - df.pov_rate
-        # )
+        df['total_female_mentrual_age'] = df[['total_female_10_to_14', \
+                         'total_female_15_to_17', 'total_female_18_to_19',
+                         'total_female_20', 'total_female_21', 'total_female_22_to_24',
+                         'total_female_25_to_29', 'total_female_30_to_34', \
+                         'total_female_35_to_39',
+                         'total_female_40_to_44']].apply(sum, axis=1)
+
+        df = df.assign(
+            percentage_female_menstrual_age = (df.total_female_mentrual_age/ df.total_female)
+        )
         return df
     
     def classify_columns(self, column_lst):
@@ -67,7 +80,6 @@ class CensusAPI:
         macro_columns = []
 
         for column in column_lst:
-            print(column)
             if column.startswith("S"):
                 subject_columns.append(column)
             elif column.startswith("B"):
@@ -76,6 +88,8 @@ class CensusAPI:
         
         return (",".join(subject_columns), ",".join(macro_columns))
 
+
+# Produce Data sets and save as JSON
 cols = 'B01001_026E,B01001_029E'
 geo = 'tract:*'
 state = '17'
