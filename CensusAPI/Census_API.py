@@ -11,7 +11,7 @@ class CensusAPI:
         self.base_url_subject_tables = 'https://api.census.gov/data/2021/acs/acs5/subject'
         self.base_url_macro_table = 'https://api.census.gov/data/2021/acs/acs5'
         
-    def get_data(self, cols, geo, state):
+    def get_data(self, geo, state):
         cols = ["B01001_001E",'B01001_026E','B01001_029E','B01001_030E',\
         "B01001_031E", "B01001_032E", "B01001_033E", \
         "B01001_034E", "B01001_035E", "B01001_036E", \
@@ -130,9 +130,11 @@ class CensusAPI:
 
 
 # Produce Data sets and save as JSON
-cols = 'B01001_026E,B01001_029E'
 geo = 'tract:*'
 state = '17'
 
 api = CensusAPI("7527e32c66997745264cf65a96efac91e01e1b5b")
-df = api.get_data(cols, geo, state)
+df = api.get_data( geo, state)
+
+
+# TO DO: merge in subject data with main table
