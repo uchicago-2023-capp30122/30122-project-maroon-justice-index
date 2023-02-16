@@ -19,7 +19,9 @@ class CensusAPI:
         "B18135_022E", "B19001_002E", "B19001_003E",\
         "B19001_004E", "B19001_005E", "B19001_006E",\
         "B19001_007E", "B19001_008E", "B19001_009E",\
-        "B19001_010E", "B19001_011E","S1701_C03_001E"]
+        "B19001_010E", "B19001_011E","S1701_C03_001E",\
+        "B19058_002E", "B19058_003E", "B09010_001E",\
+        "B09010_002E"]
 
         #identify columns that are found in the subject tables
         subject_columns, macro_columns = self.classify_columns(cols)
@@ -52,7 +54,11 @@ class CensusAPI:
             "B19001_008E": "total_with_income_level5",
             "B19001_009E": "total_with_income_level6",
             "B19001_010E": "total_with_income_level7",
-            "B19001_011E": "total_with_income_level8"
+            "B19001_011E": "total_with_income_level8",
+            "B19058_002E": "total_receives_stamps_SNAP",
+            "B19058_003E": "no_stamps_SNAP",
+            "B09010_001E": "receipt_stamps_SNAP",
+            "B09010_002E": "receipt_stamps_SNAP_household"
             }
         )
         df = df.astype(
@@ -80,7 +86,11 @@ class CensusAPI:
             "total_with_income_level5": 'int64',
             "total_with_income_level6": 'int64',
             "total_with_income_level7": 'int64',
-            "total_with_income_level8": 'int64'
+            "total_with_income_level8": 'int64',
+            "total_receives_stamps_SNAP": 'int64',
+            "no_stamps_SNAP": 'int64',
+            "receipt_stamps_SNAP": 'int64',
+            "receipt_stamps_SNAP_household": 'int64'
             }
         )
         df['total_female_mentrual_age'] = df[['total_female_10_to_14', \
