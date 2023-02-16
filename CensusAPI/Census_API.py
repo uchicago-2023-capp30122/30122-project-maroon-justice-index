@@ -18,8 +18,8 @@ class CensusAPI:
         "B01001_037E", "B01001_038E", "B18135_023E", \
         "B18135_022E", "B19001_002E", "B19001_003E",\
         "B19001_004E", "B19001_005E", "B19001_006E",\
-        "B19001_007E", "B19001_008E", "B19001_009E"]
-        # "B19001_0010E", "B19001_0011E",'S1701_C03_001E']
+        "B19001_007E", "B19001_008E", "B19001_009E",\
+        "B19001_010E", "B19001_011E","S1701_C03_001E"]
 
         #identify columns that are found in the subject tables
         subject_columns, macro_columns = self.classify_columns(cols)
@@ -50,9 +50,9 @@ class CensusAPI:
             "B19001_006E": "total_with_income_level3",
             "B19001_007E": "total_with_income_level4",
             "B19001_008E": "total_with_income_level5",
-            "B19001_009E": "total_with_income_level6"
-            # "B19001_0010E": "total_with_income_level7",
-            # "B19001_0011E": "total_with_income_level8"
+            "B19001_009E": "total_with_income_level6",
+            "B19001_010E": "total_with_income_level7",
+            "B19001_011E": "total_with_income_level8"
             }
         )
         df = df.astype(
@@ -79,8 +79,8 @@ class CensusAPI:
             "total_with_income_level4": 'int64',
             "total_with_income_level5": 'int64',
             "total_with_income_level6": 'int64',
-            # "total_with_income_level7": 'int64',
-            # "total_with_income_level8": 'int64'
+            "total_with_income_level7": 'int64',
+            "total_with_income_level8": 'int64'
             }
         )
         df['total_female_mentrual_age'] = df[['total_female_10_to_14', \
