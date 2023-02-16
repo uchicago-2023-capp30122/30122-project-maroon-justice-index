@@ -12,10 +12,14 @@ class CensusAPI:
         self.base_url_macro_table = 'https://api.census.gov/data/2021/acs/acs5'
         
     def get_data(self, cols, geo, state):
-        cols = ['B01001_026E','B01001_029E','B01001_030E',\
+        cols = ["B01001_001E",'B01001_026E','B01001_029E','B01001_030E',\
         "B01001_031E", "B01001_032E", "B01001_033E", \
         "B01001_034E", "B01001_035E", "B01001_036E", \
-        "B01001_037E", "B01001_038E", 'S1701_C03_001E']
+        "B01001_037E", "B01001_038E", "B18135_023E", \
+        "B18135_022E", "B19001_002E", "B19001_003E",\
+        "B19001_004E", "B19001_005E", "B19001_006E",\
+        "B19001_007E", "B19001_008E", "B19001_009E"]
+        # "B19001_0010E", "B19001_0011E",'S1701_C03_001E']
 
         #identify columns that are found in the subject tables
         subject_columns, macro_columns = self.classify_columns(cols)
@@ -25,6 +29,7 @@ class CensusAPI:
         full_json = data_response_macro.json()
         df = pd.DataFrame(full_json[1:], columns=full_json[0]).rename(
             columns={
+            "B01001_001E": "total_population",
             "B01001_026E": "total_female",
             "B01001_029E": "total_female_10_to_14",
             "B01001_030E": "total_female_15_to_17",
@@ -35,11 +40,24 @@ class CensusAPI:
             "B01001_035E": "total_female_25_to_29",
             "B01001_036E": "total_female_30_to_34",
             "B01001_037E": "total_female_35_to_39",
-            "B01001_038E": "total_female_40_to_44"
+            "B01001_038E": "total_female_40_to_44",
+            "B18135_023E": "total_19_to_64_no_health_insurance",
+            "B18135_022E": "total_19_to_64_public_health_insurance",
+            "B19001_002E": "total_no_income",
+            "B19001_003E": "total_with_income",
+            "B19001_004E": "total_with_income_level1",
+            "B19001_005E": "total_with_income_level2",
+            "B19001_006E": "total_with_income_level3",
+            "B19001_007E": "total_with_income_level4",
+            "B19001_008E": "total_with_income_level5",
+            "B19001_009E": "total_with_income_level6"
+            # "B19001_0010E": "total_with_income_level7",
+            # "B19001_0011E": "total_with_income_level8"
             }
         )
         df = df.astype(
             dtype={
+            "total_population" :'int64',
             "total_female": 'int64', 
             "total_female_10_to_14": 'int64',
             "total_female_15_to_17": 'int64',
@@ -50,7 +68,19 @@ class CensusAPI:
             "total_female_25_to_29": 'int64',
             "total_female_30_to_34": 'int64',
             "total_female_35_to_39": 'int64',
-            "total_female_40_to_44": 'int64'
+            "total_female_40_to_44": 'int64',
+            "total_19_to_64_no_health_insurance": 'int64',
+            "total_19_to_64_public_health_insurance": 'int64',
+            "total_no_income": 'int64',
+            "total_with_income": 'int64',
+            "total_with_income_level1": 'int64',
+            "total_with_income_level2": 'int64',
+            "total_with_income_level3": 'int64',
+            "total_with_income_level4": 'int64',
+            "total_with_income_level5": 'int64',
+            "total_with_income_level6": 'int64',
+            # "total_with_income_level7": 'int64',
+            # "total_with_income_level8": 'int64'
             }
         )
         df['total_female_mentrual_age'] = df[['total_female_10_to_14', \
