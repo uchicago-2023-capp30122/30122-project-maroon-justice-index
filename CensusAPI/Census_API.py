@@ -6,6 +6,8 @@ class CensusAPI:
     """
     This class extracts US Census Data
     """
+    DIRECTORY = "30122-project-maroon-justice-index/data"
+
     def __init__(self, census_key):
         self.census_key = census_key
         self.base_url_subject_tables = 'https://api.census.gov/data/2021/acs/acs5/subject'
@@ -103,7 +105,7 @@ class CensusAPI:
         df = df.assign(
             percentage_female_menstrual_age = (df.total_female_mentrual_age/ df.total_female)
         )
-        return df
+        return self.move_key_columns_to_front(df)
     
     def classify_columns(self, column_lst):
         """
@@ -125,8 +127,54 @@ class CensusAPI:
             elif column.startswith("B"):
                 macro_columns.append(column)
 
-        
         return (",".join(subject_columns), ",".join(macro_columns))
+    
+    def move_key_columns_to_front(self,dataframe):
+        """
+        This function moves the geo columns to the front of the table
+        to improve readability
+        Inputs:
+            - dataframe (Pandas dataframe)
+        Returns:
+            - a dataframe with re-ordered columns
+        """
+        cols_to_move = ['tract', 'county', 'state']
+        dataframe = dataframe[ cols_to_move + \
+        [ col for col in dataframe.columns if col not in cols_to_move ] ]
+        return dataframe
+
+    # def get_census_key_from_environment(self):
+    #     """
+    #     This function gets the Census Key information was 
+    #     was previoiusly stored in the environment for privacy 
+    #     reasons
+    #     Inputs: 
+    #         - None 
+    #     Returns:
+    #         - None
+    #     """
+    #     with open('/proc/self/environ', 'r') as f:
+    #         env_vars = f.read().split('\0')
+    #     for env_var in env_vars:
+    #         if env_var.startswith(API_KEY + '='):
+    #             return env_var[len(API_KEY) + 1:]
+    #     return None
+
+    def export_dataframe_to_json(self, dataframe):
+        """
+        This function exports a Pandas dataframe to a JSON file.
+
+        Inputs:
+            dataframe (pandas.DataFrame): The dataframe to export.
+            filename (str): The name of the file to save the JSON data to.
+
+        Returns:
+            None
+        """
+        # Construct the full path to the file
+        export_as = DIRECTORY + "/Census_Cook_County_dta.json"
+        dataframe.to_json(export_as, orient='records')
+
 
 
 # Produce Data sets and save as JSON
@@ -136,5 +184,6 @@ state = '17'
 api = CensusAPI("7527e32c66997745264cf65a96efac91e01e1b5b")
 df = api.get_data( geo, state)
 
+# export dataframe
+api.export_dataframe_to_json(df)
 
-# TO DO: merge in subject data with main table
