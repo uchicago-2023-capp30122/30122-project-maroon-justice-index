@@ -4,15 +4,16 @@ import lxml.html
 
 def scrape_idhs_page():
     """
-    Takes the url of the Illinois Department of Human Services and returns a
-    dictionary of the name, type, address, contact info (phone, TTY, website),
-    and description of IDHS offices and service providers by county
+    Takes the url of the Illinois Department of Human Services and creates a
+    list of dictionaries with the name, type, address, contact info
+    (phone, TTY, website), and description for each IDHS office and service provider,
+    and saves this list into a json file named idhs.json
 
     Parameters:
         * url:  a URL for the IDHS offices and service providers locator page
 
     Returns:
-        A dictionary of office names mapped to the following keys:
+        A list of dictionaries with the following key/value pairs as a json file
             * name:         the name of the office
             * office_type:  the type of office (Early Intervention, Family Case Management, etc.)
             * address:      the address of the office
