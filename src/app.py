@@ -5,6 +5,7 @@ from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
+import geopandas as gpd
 import numpy as np
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -13,28 +14,32 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 neighborhoods = "https://raw.githubusercontent.com/blackmad/neighborhoods/master/chicago.geojson"
 
-# generate some data for each region defined in geojson...
-df = pd.DataFrame(
-    {"neighborhood": range(1, 77, 1), "period_pov_index": np.random.uniform(0.4, 10.4, 76)}
-)
+df = gpd.read_file(neighborhoods)
+df['index'] = np.random.uniform(0.4, 10.4, 98) # generate random index data
 
 fig = px.choropleth_mapbox(df, geojson = neighborhoods, 
-                           locations = "neighborhood",
-                           color="period_pov_index",
-                           color_continuous_scale="Viridis",
+                           title = "Period Poverty Index by Neighborhood",
+                           locations = "cartodb_id",
+                           color="index",
+                           color_continuous_scale="amp",
                            range_color=(0, 12),
                            featureidkey="properties.cartodb_id",
                            mapbox_style="carto-positron",
                            opacity=0.5,
-                           center = {"lat": 41.8781, "lon": -87.6298},
+                           hover_name="name",
+                           hover_data={'cartodb_id':False}, 
+                           center={"lat": 41.8781, "lon": -87.6298},
                            zoom=9)
 fig.update_geos(fitbounds="locations",visible=False)
-fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0},)
-# fig.update_traces(marker=dict(size=10, 
-#                               line=dict(width=3, color='white')))
+fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0}#,
+                #   legend=dict( # this is not working? legend does not update
+                #       yanchor="bottom",
+                #       y=0.99,
+                #       xanchor="left",
+                #       x=0.01
+                #       )
+                  )
 fig.show()
-
-
 
 # ------------------ html page layout here ----------------------------
 
@@ -45,8 +50,8 @@ app.layout = dbc.Container([
         dbc.Col([
             html.H1('Mapping Period Poverty in Chicago', style={'text-align':'center'}),
             html.P('Betty Fang, Diamon Dunlap, Ivanna Rodríguez, Jimena Salinas', style={'text-align':'center', 'font-style':'italic'}),
-        ], width=12, align='end') # align supposed to add padding but not working
-    ]),
+        ], width=12) # align supposed to add padding but not working
+    ], align='end'),
 
     # intro
     dbc.Row([
@@ -54,7 +59,7 @@ app.layout = dbc.Container([
             html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
             html.Br(), 'now I am adding a new line break but does this text appear??']),
         ], width=12) # 12 is maximum you can take
-    ]),
+    ], align='end'),
 
     # index methodology (?)
 
@@ -66,7 +71,7 @@ app.layout = dbc.Container([
                 id='graph',
                 figure = fig)
         ], width=12)
-    ]),
+    ], align='center'),
 
     # community centers text
     dbc.Row([
@@ -74,11 +79,11 @@ app.layout = dbc.Container([
             html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
             ])
         ], width = 12, align='end') # how do u add padding...?
-    ])
+    ], align='end')
 
     # community centers map
 
-], className="pad-row")
+])
 
 
 
