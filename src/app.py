@@ -45,6 +45,7 @@ fig1.update_layout(margin={"r":0,"t":0,"l":0,"b":0},
                   )
 fig1.show()
 
+# ------------- community centers map ----------------
 
 # neighborhoods = "https://raw.githubusercontent.com/blackmad/neighborhoods/master/chicago.geojson"
 
@@ -82,6 +83,7 @@ app.layout = dbc.Container([
     # header
     dbc.Row([
         dbc.Col([
+            html.Br(), # add space above header
             html.H1('Mapping Period Poverty in Chicago', style={'text-align':'center'}),
             html.P('Betty Fang, Diamon Dunlap, Ivanna Rodríguez, Jimena Salinas', style={'text-align':'center', 'font-style':'italic'}),
         ], width=12) # align supposed to add padding but not working
@@ -110,6 +112,7 @@ app.layout = dbc.Container([
     # community centers text
     dbc.Row([
         dbc.Col([
+            html.Br(), # add space above header
             html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
             ])
         ], width = 12, align='end') # how do u add padding...?
