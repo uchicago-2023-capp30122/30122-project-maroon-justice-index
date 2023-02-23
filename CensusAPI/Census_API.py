@@ -6,30 +6,82 @@ class CensusAPI:
     """
     This class extracts US Census Data
     """
+    DIRECTORY = "30122-project-maroon-justice-index/data"
+
     def __init__(self, census_key):
         self.census_key = census_key
-        self.base_url_subject_tables = 'https://api.census.gov/data/2021/acs/acs5/subject'
         self.base_url_macro_table = 'https://api.census.gov/data/2021/acs/acs5'
-        
+        self.base_url_profile_table = 'https://api.census.gov/data/2019/acs/acs5/profile'
+
     def get_data(self, geo, state):
-        cols = ["B01001_001E",'B01001_026E','B01001_029E','B01001_030E',\
-        "B01001_031E", "B01001_032E", "B01001_033E", \
-        "B01001_034E", "B01001_035E", "B01001_036E", \
-        "B01001_037E", "B01001_038E", "B18135_023E", \
-        "B18135_022E", "B19001_002E", "B19001_003E",\
-        "B19001_004E", "B19001_005E", "B19001_006E",\
-        "B19001_007E", "B19001_008E", "B19001_009E",\
-        "B19001_010E", "B19001_011E","S1701_C03_001E",\
-        "B19058_002E", "B19058_003E", "B09010_001E",\
-        "B09010_002E"]
+        cols = ["B01001_001E",
+                'B01001_026E',
+                'B01001_029E',
+                'B01001_030E',
+                "B01001_031E", 
+                "B01001_032E",
+                "B01001_033E", 
+                "B01001_034E", 
+                "B01001_035E", 
+                "B01001_036E", 
+                "B01001_037E", 
+                "B01001_038E", 
+                "B18135_023E", 
+                "B18135_022E",
+                "B19001_002E", 
+                "B19001_003E",
+                "B19001_004E", 
+                "B19001_005E", 
+                "B19001_006E",
+                "B19001_007E", 
+                "B19001_008E", 
+                "B19001_009E",
+                "B19001_010E", 
+                "B19001_011E",
+                "B19058_002E",
+                "B19058_003E", 
+                "B09010_001E",
+                "B01003_001E",
+                "B09010_002E",
+                "B19013_001E",
+                "B19123_001E",
+                "B19123_002E",
+                "B19123_005E",
+                "B19123_008E",
+                "B19123_011E",
+                "B19123_014E",
+                "B19123_017E",
+                "B19123_020E",
+                "DP04_0142PE",
+                "DP04_0141PE",
+                "DP04_0140PE",
+                "DP04_0139PE",
+                "DP04_0138PE",
+                "DP04_0137PE"
+                ] 
 
-        #identify columns that are found in the subject tables
-        subject_columns, macro_columns = self.classify_columns(cols)
+        #identify columns that are found in the profile tables
+        profile_columns, macro_columns = self.classify_columns(cols)
 
+        #macro data
         full_url_macro = f'{self.base_url_macro_table}?get={macro_columns}&for={geo}&in=state:{state}&key={self.census_key}'
         data_response_macro = requests.get(full_url_macro)
+    
+        #profile data
+        full_url_profile = f'{self.base_url_profile_table}?get={profile_columns}&for={geo}&in=state:{state}&key={self.census_key}'
+        data_response_profile = requests.get(full_url_profile)
+
         full_json = data_response_macro.json()
-        df = pd.DataFrame(full_json[1:], columns=full_json[0]).rename(
+        profile_json = data_response_profile.json()
+
+        # Convert JSON data to Pandas dataframes
+        full_df = pd.DataFrame(full_json[1:], columns=full_json[0])
+        profile_df = pd.DataFrame(profile_json[1:], columns=profile_json[0])
+
+        # Merge dataframes on county and tract
+        merged_df = pd.merge(full_df, profile_df, on=['county', 'tract'])
+
+        merged_df = merged_df.rename(
             columns={
             "B01001_001E": "total_population",
             "B01001_026E": "total_female",
@@ -55,13 +107,28 @@ class CensusAPI:
             "B19001_009E": "total_with_income_level6",
             "B19001_010E": "total_with_income_level7",
             "B19001_011E": "total_with_income_level8",
-            "B19058_002E": "total_receives_stamps_SNAP",
-            "B19058_003E": "no_stamps_SNAP",
-            "B09010_001E": "receipt_stamps_SNAP",
-            "B09010_002E": "receipt_stamps_SNAP_household"
-            }
-        )
-        df = df.astype(
+            "B19058_002E": "total_receives_stamps_snap",
+            "B19058_003E": "no_stamps_snap",
+            "B09010_001E": "receipt_stamps_snap",
+            "B09010_002E": "receipt_stamps_snap_household",
+            "B19123_001E":"total_assistance",
+            "B19013_001E":"median_income",
+            "B01003_001E":"total_pop_in_tract",
+            "B19123_002E":"fam_1_with_snap",
+            "B19123_005E":"fam_2_with_snap",
+            "B19123_008E":"fam_3_with_snap",
+            "B19123_011E":"fam_4_with_snap",
+            "B19123_014E":"fam_5_with_snap",
+            "B19123_017E":"fam_6_with_snap",
+            "B19123_020E":"fam_7_with_snap",
+            "DP04_0142PE":"rent_percent_35_more",
+            "DP04_0141PE":"rent_percent_30_34_9",
+            "DP04_0140PE":"rent_percent_25_29_9",
+            "DP04_0139PE":"rent_percent_20_24_9",
+            "DP04_0138PE":"rent_percent_15_19_9",
+            "DP04_0137PE":"rent_percent_15_less"})
+
+        merged_df = merged_df.astype(
             dtype={
             "total_population" :'int64',
             "total_female": 'int64', 
@@ -87,46 +154,103 @@ class CensusAPI:
             "total_with_income_level6": 'int64',
             "total_with_income_level7": 'int64',
             "total_with_income_level8": 'int64',
-            "total_receives_stamps_SNAP": 'int64',
-            "no_stamps_SNAP": 'int64',
-            "receipt_stamps_SNAP": 'int64',
-            "receipt_stamps_SNAP_household": 'int64'
+            "total_receives_stamps_snap": 'int64',
+            "no_stamps_snap": 'int64',
+            "receipt_stamps_snap": 'int64',
+            "receipt_stamps_snap_household": 'int64',
+            "total_assistance": 'int64',
+            "median_income": 'int64',
+            "fam_1_with_snap": 'int64',
+            "fam_2_with_snap": 'int64',
+            "fam_3_with_snap": 'int64',
+            "fam_4_with_snap": 'int64',
+            "fam_5_with_snap": 'int64',
+            "fam_6_with_snap": 'int64',
+            "fam_7_with_snap": 'int64',
+            "total_pop_in_tract": 'int64'
             }
         )
-        df['total_female_mentrual_age'] = df[['total_female_10_to_14', \
+        merged_df['total_female_mentrual_age'] = merged_df[['total_female_10_to_14', \
                          'total_female_15_to_17', 'total_female_18_to_19',
                          'total_female_20', 'total_female_21', 'total_female_22_to_24',
                          'total_female_25_to_29', 'total_female_30_to_34', \
                          'total_female_35_to_39',
                          'total_female_40_to_44']].apply(sum, axis=1)
 
-        df = df.assign(
-            percentage_female_menstrual_age = (df.total_female_mentrual_age/ df.total_female)
+        merged_df = merged_df.assign(
+            percentage_female_menstrual_age = (merged_df.total_female_mentrual_age/ merged_df.total_female)
         )
-        return df
+        return self.move_key_columns_to_front(merged_df)
     
     def classify_columns(self, column_lst):
         """
         This function takes a list of column names from the US Census,
-        and classifies the columns in those belonging to the Subject tables
+        and classifies the columns in those belonging to the profile tables
         of the general Census macro table.
         Inputs: 
             - A list of column names (lst)
         Returns:
-            - A a tuple with a list of subject column and macro columns
+            - A a tuple with a list of profile column and macro columns
             (tuple)
         """
-        subject_columns = []
+        profile_columns = []
         macro_columns = []
 
         for column in column_lst:
-            if column.startswith("S"):
-                subject_columns.append(column)
+            if column.startswith("DP"):
+                profile_columns.append(column)
             elif column.startswith("B"):
                 macro_columns.append(column)
 
-        
-        return (",".join(subject_columns), ",".join(macro_columns))
+        return (",".join(profile_columns), ",".join(macro_columns))
+    
+    def move_key_columns_to_front(self,dataframe):
+        """
+        This function moves the geo columns to the front of the table
+        to improve readability
+        Inputs:
+            - dataframe (Pandas dataframe)
+        Returns:
+            - a dataframe with re-ordered columns
+        """
+        cols_to_move = ['tract', 'county']
+        dataframe = dataframe[ cols_to_move + \
+        [ col for col in dataframe.columns if col not in cols_to_move ] ]
+        return dataframe
+
+    # def get_census_key_from_environment(self):
+    #     """
+    #     This function gets the Census Key information was 
+    #     was previoiusly stored in the environment for privacy 
+    #     reasons
+    #     Inputs: 
+    #         - None 
+    #     Returns:
+    #         - None
+    #     """
+    #     with open('/proc/self/environ', 'r') as f:
+    #         env_vars = f.read().split('\0')
+    #     for env_var in env_vars:
+    #         if env_var.startswith(API_KEY + '='):
+    #             return env_var[len(API_KEY) + 1:]
+    #     return None
+
+    def export_dataframe_to_json(self, dataframe):
+        """
+        This function exports a Pandas dataframe to a JSON file.
+
+        Inputs:
+            dataframe (pandas.DataFrame): The dataframe to export.
+            filename (str): The name of the file to save the JSON data to.
+
+        Returns:
+            None
+        """
+        # Construct the full path to the file
+        export_as = self.DIRECTORY + "/Census_Cook_County_dta.json"
+        print(export_as)
+        dataframe.to_json(export_as, orient='records')
+
 
 
 # Produce Data sets and save as JSON
@@ -134,7 +258,8 @@ geo = 'tract:*'
 state = '17'
 
 api = CensusAPI("7527e32c66997745264cf65a96efac91e01e1b5b")
-df = api.get_data( geo, state)
+merged_df = api.get_data( geo, state)
 
+# export dataframe
+api.export_dataframe_to_json(merged_df)
 
-# TO DO: merge in subject data with main table
