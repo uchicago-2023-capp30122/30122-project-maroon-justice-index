@@ -31,19 +31,14 @@ fig_idx.update_traces(marker_line_width=1, marker_line_color='white')
 
 # ---------------- community centers map --------------------
 
-df_cc = pd.read_csv("geocoded_community_centers_chicago.csv")
-geometry = gpd.points_from_xy(df_cc['lon'], df_cc['lat'])
-gdf = gpd.GeoDataFrame(df_cc, geometry=geometry)
-neighborhoods = gpd.read_file("https://raw.githubusercontent.com/blackmad/neighborhoods/master/chicago.geojson")
-joined = gpd.sjoin(gdf, neighborhoods, predicate='within')
-joined = joined.rename(columns={'name':'Neighborhood', 'Name':'Community Center'})
+joined = gpd.read_file("comm_centers_neighborhoods.geojson")
 
 fig_cc = px.scatter_mapbox(joined, 
                         lat=joined.geometry.y, 
                         lon=joined.geometry.x, 
                         zoom=10,
                         hover_name="Community Center",
-                        hover_data=['neighborhood'],
+                        hover_data=['Neighborhood'],
                         # hover_data={'Neighborhood': True, 'lat':False, 'lon':False},
                         opacity=0.5,
                         color="Type",
