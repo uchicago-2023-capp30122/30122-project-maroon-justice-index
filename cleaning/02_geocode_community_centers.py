@@ -21,4 +21,17 @@ df_without_none = df.dropna(subset=['gcode'])
 df_without_none['lat'] = [g.latitude for g in df_without_none.gcode]
 df_without_none['lon'] = [g.longitude for g in df_without_none.gcode]
 
-df_without_none.to_csv("src/geocoded_community_centers_chicago.csv", index = False)
+df_without_none.to_csv("data/geocoded_community_centers_chicago.csv", index = False)
+
+# turn dataframe into points
+geometry = gpd.points_from_xy(df_without_none['lon'], df_without_none['lat'])
+gdf = gpd.GeoDataFrame(df_without_none, geometry=geometry)
+
+# bring in neighborhood polygons
+s = "https://raw.githubusercontent.com/blackmad/neighborhoods/master/chicago.geojson"
+neighborhoods = gpd.read_file(s)
+
+# spatial join for community centers points and neighborhood names
+joined = gpd.sjoin(gdf, neighborhoods, predicate='within')
+joined = joined.rename(columns={'name':'Neighborhood', 'Name':'Community Center'})
+joined.to_file('src/comm_centers_neighborhoods.geojson', driver='GeoJSON')  
