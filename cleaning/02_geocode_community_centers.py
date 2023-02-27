@@ -21,12 +21,4 @@ df_without_none = df.dropna(subset=['gcode'])
 df_without_none['lat'] = [g.latitude for g in df_without_none.gcode]
 df_without_none['lon'] = [g.longitude for g in df_without_none.gcode]
 
-# # Convert the DataFrame to a GeoDataFrame with Point geometries
-# geometry = gpd.points_from_xy(data['lon'], data['lat'])
-# gdf = gpd.GeoDataFrame(data, geometry=geometry)
-
-# cannot turn to geojson for whatever reason, so i'm exporting as csv and 
-# trying this later
-
-# save to csv
-df_without_none.to_csv("data/geocoded_community_centers_chicago.csv", index = False)
+df_without_none.to_csv("src/geocoded_community_centers_chicago.csv", index = False)
