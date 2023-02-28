@@ -14,20 +14,38 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # --------- census tract pp index map ----------------
 
-census_tracts_df = gpd.read_file("boundaries_census_tracts_2010.geojson")
-df = pd.read_json("index_draft_disposable_income_sex_age.json")
+census_tracts = gpd.read_file("census_tract_with_neigh_names.geojson")
+df = pd.read_json("index_w_neigh_names.json")
 
 # figure
-fig_idx = px.choropleth_mapbox(df, geojson = census_tracts_df, locations = "tract",
-                           color="pp_index", color_continuous_scale="amp",
-                           range_color=(0, 20.7), featureidkey="properties.tractce10",
-                           mapbox_style="carto-positron", opacity=0.5,
-                           hover_name="NAME",
-                           center={"lat": 41.8781, "lon": -87.6298}, zoom=9)
+fig_idx = px.choropleth_mapbox(df, geojson = census_tracts, 
+                            locations = "tract", color="pp_index", 
+                            color_continuous_scale="amp", range_color=(0, 20.7), 
+                            featureidkey="properties.tractce10",
+                            mapbox_style="carto-positron", opacity=0.5,
+                            hover_name="neighborhood_name",
+                            center={"lat": 41.8227, "lon": -87.6014}, zoom=9.4)
 fig_idx.update_geos(fitbounds="locations", visible=False)
 fig_idx.update_layout(title_text='Period Poverty Index by Census Tract', title_x=0.5,
     margin={"r":0,"t":40,"l":0,"b":0})
 fig_idx.update_traces(marker_line_width=1, marker_line_color='white')
+
+# fig_idx.update_layout({
+#     'updatemenus': [{
+#         'buttons': [
+#             {
+#                 'args': [{'mapbox.zoom':12, 'mapbox.center.lat':census_tracts[census_tracts['neighborhood_name'] == neighborhood]['lat'].iloc[0],
+#                           'mapbox.center.lon': census_tracts[census_tracts['neighborhood_name'] == neighborhood]['lon'].iloc[0]}],
+#                 'label': neighborhood,
+#                 'method': 'relayout'
+#             } for neighborhood in census_tracts['neighborhood_name'].unique()
+#         ],
+#         'direction': 'down',
+#         'showactive': True,
+#         'x': 0.01,
+#         'y': 0.95
+#     }]
+# })
 
 # ---------------- community centers map --------------------
 
