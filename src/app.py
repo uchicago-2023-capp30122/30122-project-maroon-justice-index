@@ -14,7 +14,7 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # --------- census tract pp index map ----------------
 
-census_tracts = gpd.read_file("census_tract_with_neigh_names.geojson")
+census_tracts = gpd.read_file("boundaries_census_tracts_2010.geojson")
 df = pd.read_json("index_w_neigh_names.json")
 
 # figure
@@ -54,7 +54,7 @@ joined = gpd.read_file("comm_centers_neighborhoods.geojson")
 fig_cc = px.scatter_mapbox(joined, 
                         lat=joined.geometry.y, 
                         lon=joined.geometry.x, 
-                        zoom=10,
+                        zoom=9,
                         hover_name="Community Center",
                         hover_data=['Neighborhood'],
                         # hover_data={'Neighborhood': True, 'lat':False, 'lon':False},
