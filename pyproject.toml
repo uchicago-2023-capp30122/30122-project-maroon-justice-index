@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "30122-project-maroon-justice-index"
+version = "0.1.0"
+description = ""
+authors = ["\".jibd\""]
+readme = "README.md"
+packages = [{include = "30122_project_maroon_justice_index"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+dash = "^2.8.1"
+dash-bootstrap-components = "^1.4.0"
+plotly-express = "^0.4.1"
+pandas = "^1.5.3"
+geopandas = "^0.12.2"
+geopy = "^2.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
