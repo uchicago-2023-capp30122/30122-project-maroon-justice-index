@@ -1,3 +1,10 @@
+'''
+CAPP 122: Project Maroon Justice Index
+Jimena Salinas
+Code for calling the US Census API and constructing 
+a JSON data file
+'''
+
 import requests
 import pandas as pd
 
