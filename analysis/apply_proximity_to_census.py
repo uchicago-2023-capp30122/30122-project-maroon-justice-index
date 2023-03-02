@@ -29,7 +29,7 @@ class CensusTractCentroids:
         """
         This function uses the built-in GeoPandas 'centroid', 'x', and 'y
         attributes to obtain the centroids for each tract in the 
-        GeoDaraFrame
+        GeoDataFrame
 
         Returns:
             - List of tuples: (list) a list of tuples with 
