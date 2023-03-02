@@ -59,8 +59,19 @@ class CensusTractCentroids:
             number_of_centers[tract] = centers_count
         return number_of_centers
 
+    def merge_dict_to_dataframe(self):
+        """
+
+        """
+        tract_centers_df = pd.DataFrame.from_dict(
+            self.apply_prox_to_census(), orient='index', columns=['number_of_centers'])
+        tract_centers_df = tract_centers_df.reset_index().rename(columns={
+            'index': 'tract'})
+        return tract_centers_df
+
+
         # TO DO: run Betty's function
 centroids = CensusTractCentroids().get_centroids()
 centroids
 centers = CensusTractCentroids()
-centers.apply_prox_to_census()
+centers.merge_dict_to_dataframe()
