@@ -32,7 +32,7 @@ def proximity_analysis(lat=41.854, lon=-87.71):
     # convert crs back to EPSG:4326 to match community centers crs
     gdf = gdf.to_crs("EPSG:4326")
 
-    comm_centers = gpd.read_file("../src/comm_centers_neighborhoods.geojson")
+    comm_centers = gpd.read_file("src/comm_centers_neighborhoods.geojson")
     comm_centers = comm_centers.to_crs("EPSG:4326")
 
     # create intersection dataframe of community centers within 1 mile radius
