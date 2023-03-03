@@ -26,7 +26,7 @@ class CensusAPI:
         https://www.census.gov/data/developers/guidance/api-user-guide.html
         """
         self.census_key = census_key
-        self.base_url_macro_table = 'https://api.census.gov/data/2021/acs/acs5'
+        self.base_url_macro_table = 'https://api.census.gov/data/2019/acs/acs5'
         self.base_url_profile_table = 'https://api.census.gov/data/2019/acs/acs5/profile'
 
     def get_data(self, geo, state):
@@ -278,4 +278,5 @@ api = CensusAPI("7527e32c66997745264cf65a96efac91e01e1b5b")
 merged_df = api.get_data(geo, state)
 
 # export dataframe
-api.export_dataframe_to_json(merged_df)
+# api.export_dataframe_to_json(merged_df)
+merged_df.to_json(path_or_buf='Census_Cook_County_dta.json')
