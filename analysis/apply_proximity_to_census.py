@@ -88,8 +88,4 @@ class CensusTractCentroids:
 
 # Call class and export center access information for index computation
 centers = CensusTractCentroids()
-<<<<<<< HEAD
-centers.merge_dict_to_dataframe()
-=======
 centers.export_dataframe_to_json()
->>>>>>> 4632c1167e17b4a8752056f1262c9e0b15271dc5
