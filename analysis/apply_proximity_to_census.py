@@ -8,12 +8,14 @@ updating the master analysis file
 
 from analysis.proximity import proximity_analysis
 import geopandas as gpd
+import pandas as pd
+import geopandas as gpd
 
 
 class CensusTractCentroids:
     """
     This class finds the centroids for each Census tract
-    and applied the proximity analysis function to estimate
+    and applies the proximity analysis function to estimate
     proximity to resource centers.
     """
 
@@ -32,18 +34,44 @@ class CensusTractCentroids:
         GeoDataFrame
 
         Returns:
-            - List of tuples: (list) a list of tuples with 
-            the latitude and longitude of a tract centroid.
+            - Dictionary of coordinates by tract: (dict) a dictionary mapping
+            each Illinois Census tract to a tuple with the latitude and 
+            longitude of the tract's centroid .
         """
-        centroids = []
+        centroids = {}
         for row in self.tracts_geo.itertuples():
             centroid = row.geometry.centroid
+            tract = row.tractce10
             lat = centroid.y
             lon = centroid.x
-            centroids.append((lat, lon))
+            centroids[tract] = (lat, lon)
         return centroids
 
+    def apply_prox_to_census(self):
+        """
 
-# TO DO: run Betty's function
+        """
+        centroids_census = self.get_centroids()
+        number_of_centers = {}
+        for tract, coordinates in centroids_census.items():
+            lat, long = coordinates
+            centers_count = proximity_analysis(lat, long)
+            number_of_centers[tract] = centers_count
+        return number_of_centers
+
+    def merge_dict_to_dataframe(self):
+        """
+
+        """
+        tract_centers_df = pd.DataFrame.from_dict(
+            self.apply_prox_to_census(), orient='index', columns=['number_of_centers'])
+        tract_centers_df = tract_centers_df.reset_index().rename(columns={
+            'index': 'tract'})
+        return tract_centers_df
+
+
+        # TO DO: run Betty's function
 centroids = CensusTractCentroids().get_centroids()
 centroids
+centers = CensusTractCentroids()
+centers.merge_dict_to_dataframe()
