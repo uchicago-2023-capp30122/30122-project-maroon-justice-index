@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import numpy as np
 # from analysis import apply_proximity_to_census
 
 #### READ IN DATA #####
@@ -175,21 +176,12 @@ disposable_income_sex_age = pd.merge(disposable_income, sex_age_eligible, \
                                             'county',
                                             'tract'], how='left')
 
-disposable_income_sex_age['pp_index'] = ((20 * disposable_income_sex_age.total_eligible_women)/\
+disposable_income_sex_age['pp_index_raw'] = ((20 * disposable_income_sex_age.total_eligible_women)/\
                                                 (disposable_income_sex_age.disposable_income_per_month * \
                                                         disposable_income_sex_age.percent_female_pop)) * 1000
 
 disposable_income_sex_age['county_name'] = disposable_income_sex_age.census_name.str.extract(r'(\sCook\s)')
 disposable_income_sex_age = disposable_income_sex_age.dropna()
-
-# normalize the data
-# disposable_income_sex_age['pp_index'] = (disposable_income_sex_age.pp_index - disposable_income_sex_age.pp_index.min())/ \
-#                 (disposable_income_sex_age.pp_index.max() - disposable_income_sex_age.pp_index.min())
-
-
-# disposable_income_sex_age['pp_index'] = (disposable_income_sex_age.pp_index - disposable_income_sex_age.pp_index.mean())/ \
-#                                                 disposable_income_sex_age.pp_index.std()
-
 
 # join to community center counts
 comm_counts = pd.read_json('data/Tract_center_counts.json')
@@ -208,16 +200,23 @@ def down_weighting(x):
         return (1 - 0.05)
     else:
         return 1
-    
+
 disposable_income_sex_age['down_weight'] = disposable_income_sex_age['number_of_centers'].apply(lambda x: down_weighting(x))
-disposable_income_sex_age['pp_index_cc_approx'] = disposable_income_sex_age.pp_index * disposable_income_sex_age.down_weight
+disposable_income_sex_age['pp_index'] = disposable_income_sex_age.pp_index_raw * disposable_income_sex_age.down_weight
+
+# normalize the data
+disposable_income_sex_age['pp_index'] = (disposable_income_sex_age.pp_index - disposable_income_sex_age.pp_index.min())/ \
+                (disposable_income_sex_age.pp_index.max() - disposable_income_sex_age.pp_index.min())
+
+
+# disposable_income_sex_age['pp_index'] = (disposable_income_sex_age.pp_index - disposable_income_sex_age.pp_index.mean())/ \
+#                                                 disposable_income_sex_age.pp_index.std()
 
 
 # export to json
 # MAP 1
 disposable_income_sex_age.to_json(path_or_buf='data/pp_index.json')
-# MAP2 
-# new_index.to_json(path_or_buf='data/pp_index_cc.json')
+
 
 
 
