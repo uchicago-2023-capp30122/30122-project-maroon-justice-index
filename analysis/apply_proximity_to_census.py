@@ -18,6 +18,7 @@ class CensusTractCentroids:
     and applies the proximity analysis function to estimate
     proximity to resource centers.
     """
+    DIRECTORY = "data"
 
     def __init__(self):
         """
@@ -69,9 +70,22 @@ class CensusTractCentroids:
             'index': 'tract'})
         return tract_centers_df
 
+    def export_dataframe_to_json(self):
+        """
+        This function exports the Pandas dataframe with center
+        access information at the tract level to a JSON file.
+        Inputs:
+            None
+        Returns:
+            None
+        """
+        # Construct the full path to the file
+        export_as = self.DIRECTORY + "/Tract_center_counts.json"
+        dataframe = self.merge_dict_to_dataframe()
+        dataframe.to_json(export_as, orient='records')
+        return dataframe
 
-        # TO DO: run Betty's function
-centroids = CensusTractCentroids().get_centroids()
-centroids
+
+# Call class and export center access information for index computation
 centers = CensusTractCentroids()
-centers.merge_dict_to_dataframe()
+centers.export_dataframe_to_json()
