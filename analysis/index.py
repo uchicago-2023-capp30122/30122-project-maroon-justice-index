@@ -1,4 +1,4 @@
-# import requests
+import requests
 import pandas as pd
 # from analysis import apply_proximity_to_census
 
