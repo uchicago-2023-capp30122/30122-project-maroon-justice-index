@@ -278,5 +278,4 @@ api = CensusAPI("7527e32c66997745264cf65a96efac91e01e1b5b")
 merged_df = api.get_data(geo, state)
 
 # export dataframe
-# api.export_dataframe_to_json(merged_df)
-merged_df.to_json(path_or_buf='Census_Cook_County_dta.json')
+api.export_dataframe_to_json(merged_df)
