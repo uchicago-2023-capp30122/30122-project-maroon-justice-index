@@ -1,6 +1,7 @@
 # Run this app with `python app.py` and
 # visit http://127.0.0.1:8050/ in your web browser.
 
+import dash
 from dash import Dash, html, dcc, Input, Output
 import dash_bootstrap_components as dbc
 import plotly.express as px
@@ -16,17 +17,18 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 census_tracts = gpd.read_file("boundaries_census_tracts_2010.geojson")
 df = pd.read_json("index_w_neigh_names.json")
+df = df.rename(columns={'tract':'Census Tract', 'pp_index':'Period Poverty Index'})
 
-dd_list = df.neighborhood_name.dropna().unique()
+# dd_list = df.neighborhood_name.dropna().unique()
 
 def create_idx_maps(df, gdf, zoom, lat, lon):
 
     fig = px.choropleth_mapbox(
         df, 
         geojson = census_tracts, 
-        locations = "tract", 
+        locations = "Census Tract", 
         featureidkey="properties.tractce10",
-        color="pp_index", color_continuous_scale="amp", range_color=(0, 20.7), 
+        color="Period Poverty Index", color_continuous_scale="amp", range_color=(0, 20.7), 
         mapbox_style="carto-positron", opacity=0.5,
         hover_name="neighborhood_name",
         center={"lat": lat, "lon": lon}, zoom=zoom)
@@ -39,7 +41,7 @@ def create_idx_maps(df, gdf, zoom, lat, lon):
         margin={"r":0,"t":40,"l":0,"b":0}) 
     fig.update_coloraxes( # edit legend
         colorbar=dict(
-            title="Period<br>Poverty<br>Index",
+            title="Period Poverty<br>Index",
             orientation='v', 
             len=0.8,
             thickness=10,
@@ -48,8 +50,8 @@ def create_idx_maps(df, gdf, zoom, lat, lon):
     fig.update_traces( # polygon border
         marker_line_width=1, marker_line_color='white')
 
-
     return fig
+
 
 fig_idx = create_idx_maps(df, census_tracts, 9.4, 41.8227, -87.6014)
 
@@ -66,14 +68,46 @@ joined = gpd.read_file("comm_centers_neighborhoods.geojson")
 joined["lat"] = joined.geometry.y
 joined["lon"] = joined.geometry.x
 
-def create_cc_maps(df, zoom):
+def create_cc_maps(df, lat, lon):
+    # fig_cc = px.scatter_mapbox(df, 
+    #                     lat="lat", 
+    #                     lon="lon", 
+    #                     zoom=zoom,
+    #                     hover_name="Community Center",
+    #                     # hover_data=['Neighborhood'],
+    #                     hover_data={'Neighborhood': True, 'lat':False, 'lon':False},
+    #                     opacity=0.5,
+    #                     color="Category",
+    #                     color_discrete_sequence=px.colors.qualitative.Bold,
+    #                     mapbox_style="carto-positron")
+    
+    # fig_cc.update_layout(
+    #     title_text='Women and Girls Community Centers in Chicago', title_x=0.5, 
+    #     margin={"r":0,"t":40,"l":0,"b":0})
+
+    # fig_cc.update_layout({
+    #     'updatemenus': [{
+    #         'buttons': [
+    #             {
+    #                 'args': [{'mapbox.zoom':12, 'mapbox.center.lat':df[df['Neighborhood'] == neighborhood]['lat'].iloc[0],
+    #                         'mapbox.center.lon': df[df['Neighborhood'] == neighborhood]['lon'].iloc[0]}],
+    #                 'label': neighborhood,
+    #                 'method': 'relayout'
+    #             } for neighborhood in df['Neighborhood'].unique()
+    #         ],
+    #         'direction': 'down',
+    #         'showactive': True,
+    #         'x': 0.01,
+    #         'y': 0.85
+    #     }]
+    # })
+
     fig_cc = px.scatter_mapbox(df, 
-                        lat="lat", 
-                        lon="lon", 
-                        zoom=zoom,
+                        lat=lat, 
+                        lon=lon, 
+                        # zoom=zoom,
                         hover_name="Community Center",
-                        # hover_data=['Neighborhood'],
-                        hover_data={'Neighborhood': True, 'lat':False, 'lon':False},
+                        # hover_data={'Neighborhood': True, 'lat':False, 'lon':False},
                         opacity=0.5,
                         color="Category",
                         color_discrete_sequence=px.colors.qualitative.Bold,
@@ -83,26 +117,19 @@ def create_cc_maps(df, zoom):
         title_text='Women and Girls Community Centers in Chicago', title_x=0.5, 
         margin={"r":0,"t":40,"l":0,"b":0})
 
-    fig_cc.update_layout({
-        'updatemenus': [{
-            'buttons': [
-                {
-                    'args': [{'mapbox.zoom':12, 'mapbox.center.lat':df[df['Neighborhood'] == neighborhood]['lat'].iloc[0],
-                            'mapbox.center.lon': df[df['Neighborhood'] == neighborhood]['lon'].iloc[0]}],
-                    'label': neighborhood,
-                    'method': 'relayout'
-                } for neighborhood in df['Neighborhood'].unique()
-            ],
-            'direction': 'down',
-            'showactive': True,
-            'x': 0.01,
-            'y': 0.95
-        }]
-    })
-
     return fig_cc
 
-fig_cc = create_cc_maps(joined, 10)
+
+
+###### attempting dropdown
+# Define the options for the dropdown menu
+
+options = [{'label': neighborhood, 
+'value': neighborhood} for neighborhood in sorted(joined['Neighborhood'].unique())]
+options[0]['label'] = 'All'
+options[0]['value'] = 'All'
+
+fig_cc = create_cc_maps(joined, 'lat', 'lon')
 
 # --------------------------- html page layout here ----------------------------
 
@@ -126,8 +153,8 @@ app.layout = dbc.Container([
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
             nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
             reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in\
-             culpa qui officia deserunt mollit anim id est laborum.',
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in \
+            culpa qui officia deserunt mollit anim id est laborum.',
             html.Br(), 'now I am adding a new line break but does this text appear??']),
         ], width=12) # 12 is maximum you can take
     ], align='end'),
@@ -136,20 +163,20 @@ app.layout = dbc.Container([
 
     # index map
     dbc.Row([
-        dbc.Col([
-            dcc.Dropdown(
-                id='dropdown',
-                options=[{'label': i, 'value': i} for i in dd_list],
-                # value=dd_list['neighborhood_name'].unique()[0],
-                placeholder="Please select..",
-                searchable=True)
-        ], width=2, align='start'),
+        # dbc.Col([
+        #     dcc.Dropdown(
+        #         id='dropdown',
+        #         options=[{'label': i, 'value': i} for i in dd_list],
+        #         # value=dd_list['neighborhood_name'].unique()[0],
+        #         placeholder="Please select..",
+        #         searchable=True)
+        # ], width=2, align='start'),
 
         dbc.Col([
             dcc.Graph(
                 id='map-idx',
                 figure = fig_idx)
-        ], width=10)
+        ], width=12)
 
     ], align='center'),
 
@@ -180,12 +207,22 @@ app.layout = dbc.Container([
 
     # community centers map
     dbc.Row([
+
+        dbc.Col([
+            dcc.Dropdown(
+                id='neighborhood_dropdown',
+                options=options,
+                value=options[0]['value']
+                )
+        ], width=2, align='start'),
+
         dbc.Col([
             dcc.Graph(
                 id='map-cc',
                 figure = fig_cc
                 )
-        ], width=12)
+        ], width=10)
+
     ], align='center'),
 
     # community centers text
@@ -231,15 +268,43 @@ app.layout = dbc.Container([
 # ---------------------------- app callback ------------------------------
 
 @app.callback(
-    Output("map-idx", "figure"),
-    Input("dropdown","value"))
+    Output('map-cc', 'figure'),
+    Input('neighborhood_dropdown', 'value')
+    # [dash.dependencies.State('map-cc', 'figure')]
+)
+def update_map(neighborhood_dropdown):
+    # Find the center and zoom level for the selected neighborhood
 
-def display_index_map(selected_neighborhood):
-    flt_df = df[df['neighborhood_name'] == selected_neighborhood]
-    lat = flt_df.neigh_lat.drop_duplicates()
-    lon = flt_df.neigh_lon.drop_duplicates()
+    if neighborhood_dropdown == "All":
+        zoom_level = 9.4
+        fig = create_cc_maps(joined, "lat", "lon")
+        # Update the layout of the map with the new center and zoom level
+        fig['layout']['mapbox']['center'] = {'lat': 41.8227, 'lon': -87.6014}
+        fig['layout']['mapbox']['zoom'] = zoom_level
+    else:
+        center_lat = joined[joined['Neighborhood'] == neighborhood_dropdown]['lat'].mean()
+        center_lon = joined[joined['Neighborhood'] == neighborhood_dropdown]['lon'].mean()
+        zoom_level = 12
 
-    return create_idx_maps(df, census_tracts, 13, lat.values[0], lon.values[0])
+        fig = create_cc_maps(joined, "lat", "lon")
+
+        # Update the layout of the map with the new center and zoom level
+        fig['layout']['mapbox']['center'] = {'lat': center_lat, 'lon': center_lon}
+        fig['layout']['mapbox']['zoom'] = zoom_level
+
+    # Return the updated layout of the map
+    return fig
+
+# @app.callback(
+#     Output("map-idx", "figure"),
+#     Input("dropdown","value"))
+
+# def display_index_map(selected_neighborhood):
+#     flt_df = df[df['neighborhood_name'] == selected_neighborhood]
+#     lat = flt_df.neigh_lat.drop_duplicates()
+#     lon = flt_df.neigh_lon.drop_duplicates()
+
+#     return create_idx_maps(df, census_tracts, 13, lat.values[0], lon.values[0])
     
 
 if __name__ == '__main__':
