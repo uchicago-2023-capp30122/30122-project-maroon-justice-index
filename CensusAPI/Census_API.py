@@ -26,7 +26,7 @@ class CensusAPI:
         https://www.census.gov/data/developers/guidance/api-user-guide.html
         """
         self.census_key = census_key
-        self.base_url_macro_table = 'https://api.census.gov/data/2021/acs/acs5'
+        self.base_url_macro_table = 'https://api.census.gov/data/2019/acs/acs5'
         self.base_url_profile_table = 'https://api.census.gov/data/2019/acs/acs5/profile'
 
     def get_data(self, geo, state):
