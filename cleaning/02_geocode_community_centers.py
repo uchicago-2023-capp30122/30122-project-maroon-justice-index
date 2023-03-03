@@ -1,7 +1,9 @@
-# Author: Ivanna
-# Date: 2/26/2023
-# Purpose: save a geojson file with points for community centers to
-#          be able to map them in plotly express
+'''
+Author: Ivanna
+Date: 2/26/2023
+Purpose: save a geojson file with points for community centers to
+         be able to map them in plotly express
+'''
 
 import pandas as pd
 import geopandas as gpd
