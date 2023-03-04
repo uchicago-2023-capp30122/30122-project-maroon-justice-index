@@ -17,8 +17,10 @@ import plotly.graph_objs as go
 import pandas as pd
 import geopandas as gpd
 import numpy as np
+import textwrap
 
-# import static graph maker functions
+# import dfs and static graph maker functions
+from .geocode_pp_partners_chicago import gdf
 from .dataviz.fig_index_map import create_idx_maps
 from .dataviz.fig_scatters import create_index_centers_scatter, create_income_population_scatter
 
@@ -43,8 +45,11 @@ fig_pop_scatter = create_income_population_scatter(L_FONT, LT_SIZE)
 # --------- interactive community centers map ------------
 
 joined = gpd.read_file("ppindex/src/comm_centers_neighborhoods.geojson")
-joined["lat"] = joined.geometry.y
-joined["lon"] = joined.geometry.x
+joined = joined[["Community Center", "Type", "Category", "Neighborhood", 
+                 "Address", "Contact", "Note", "gcode", "lat", "lon",
+                 "geometry"]]
+gdf = gdf.rename(columns={"Name":"Community Center"})
+joined = joined.append(gdf, ignore_index = True)
 
 def create_cc_maps(df, lat, lon):
     '''
@@ -60,7 +65,8 @@ def create_cc_maps(df, lat, lon):
                         lon=lon, 
                         hover_name="Community Center",
                         hover_data={'Neighborhood': True, 'lat':False, 
-                                    'lon':False},
+                                    'lon':False,
+                                    'Address':True},
                         opacity=0.5,
                         color="Category",
                         color_discrete_sequence=px.colors.qualitative.Bold,
