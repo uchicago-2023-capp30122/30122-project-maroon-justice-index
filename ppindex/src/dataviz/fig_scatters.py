@@ -1,3 +1,14 @@
+'''
+CAPP 122: Project Maroon Justice Index
+Jimena Salinas
+Code for creating a scatter plot that
+shows the relationship between period poverty
+index values and the number of community 
+resource centers and retailers, and a scatter
+for showing the relationship between income,
+number of eligible women, and index.
+'''
+
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import plotly.colors as colors
