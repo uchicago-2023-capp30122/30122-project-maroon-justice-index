@@ -19,12 +19,28 @@ Once the repo is cloned, in the root directory 30122-project-maroon-justice-inde
 
 
 ## Period Poverty Cook County Map
+
+Below is a map illustrating our resulting index for each census tract in Chicago. Hover over each census tract to view the index value, and the neighborhood each tract is located within.
+
 ![Mapping Period Poverty across Cook County](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/map_image.png)
 
 
 ## Map of Neighbourhood Resources and Retail Centers
 
+It was important for us to incorporate existing community services and commercial retailers providing period products into our index. For people in need, having a community service nearby could ameliorate their lack of access to period products. To find existing resources around Chicago, we built a webscraper to compile the addresses for community-based services and commercial retailers, and reached out to period poverty alleviation organizations in Chicago to understand the services offered and restrictions (if any) to access period products.
+
+The map below includes all the resources we scraped, and the organizations that consented to being added to the map. Choose your neighborhood from the dropdown on the left to find the resources closest to you.
+
 ![Mapping Community Services and Retail Centers by Census Tract](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/community%20centers_image.png)
 
 
 ## Data Insights
+
+In the process of working on creating our period poverty index and community resources and retailers map, we realized that some of the Census Tracts with the highest period poverty index were also some of the tracks with the least resources at walking distance. The scatter plot below shows the relationship between the period poverty index we calculated and the number of service centers and retailers at walking distance. We see that a lot of period resources are concentrated in areas with low period poverty levels. Our ultimate hope is to use data to inform policymakers on the areas where resources are most needed.
+
+![Period Poverty, Services, and Commercial Retailers](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/community_centers_index.png)
+
+
+It is especially important to consider areas with high period poverty rates and large numbers of menstruating people. The graph below helped us identify tracts with a high number of menstruating people and a high poverty index. For instance, the graph below highlights a few tracts within neighbourhoods like Riverdale, Washington Park, South Deering, Chatham, Humbolt Park, and Englewood, where additional resources could be greatly  beneficial.
+
+![Menstruating People and Disposable Income](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/income_pop.png)
