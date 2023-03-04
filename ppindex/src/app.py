@@ -234,14 +234,14 @@ app.layout = dbc.Container([
     dbc.Row([
         html.Br(),
         dbc.Col([
-            html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in\
-            culpa qui officia deserunt mollit anim id est laborum. \
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit'])
+            html.P(["It is especially important to consider areas with high \
+            period poverty rates and large numbers of menstruating people. The \
+            graph below helped us identify tracts with a high number of \
+            menstruating people and a high poverty index. For instance, the \
+            graph below highlights a few tracts within neighbourhoods like \
+            Riverdale, Washington Park, South Deering, Chatham, Humbolt Park, \
+            and Englewood, where additional resources could be greatly \
+            beneficial."])
         ], width=12)        
     ], align='center'),
 
