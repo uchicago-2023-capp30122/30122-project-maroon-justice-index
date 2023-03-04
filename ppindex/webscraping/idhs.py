@@ -1,3 +1,6 @@
+# Author: Betty
+# Date: 02/06/22
+
 import sys
 import json
 import lxml.html
@@ -47,9 +50,3 @@ def scrape_idhs_page():
 
     with open("idhs.json", "w") as fj:
         json.dump(idhs_list, fj, indent=1)
-
-
-    # return idhs_list
-
-
-
