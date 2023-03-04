@@ -46,7 +46,7 @@ def create_idx_maps(df, gdf, zoom, lat, lon):
         locations = "Census Tract", 
         featureidkey="properties.tractce10",
         color="Period Poverty Index", color_continuous_scale="amp", 
-               range_color=(0, 20.7), 
+               range_color=(0, 1), 
         mapbox_style="carto-positron", opacity=0.5,
         hover_name="neighborhood_name",
         center={"lat": lat, "lon": lon}, zoom=zoom)
