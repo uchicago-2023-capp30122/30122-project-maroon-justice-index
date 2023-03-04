@@ -38,11 +38,11 @@ The map below includes all the resources we scraped, and the organizations that 
 
 In the process of working on creating our period poverty index and community resources and retailers map, we realized that some of the Census Tracts with the highest period poverty index were also some of the tracks with the least resources at walking distance. The scatter plot below shows the relationship between the period poverty index we calculated and the number of service centers and retailers at walking distance. We see that a lot of period resources are concentrated in areas with low period poverty levels. Our ultimate hope is to use data to inform policymakers on the areas where resources are most needed.
 
-![Period Poverty, Services, and Commercial Retailers](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/community_centers_index.png)
+![Period Poverty, Services, and Commercial Retailers](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/income_pop.png)
 
 
 It is especially important to consider areas with high period poverty rates and large numbers of menstruating people. The graph below helped us identify tracts with a high number of menstruating people and low monthly disposable incomes. For instance, the graph below highlights a few tracts within neighbourhoods like Riverdale, Washington Park, South Deering, Chatham, Humbolt Park, and Englewood, where additional resources could be greatly  beneficial.
 
-![Menstruating People and Disposable Income](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/income_pop.png)
+![Menstruating People and Disposable Income](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/community_centers_index.png)
 
 
