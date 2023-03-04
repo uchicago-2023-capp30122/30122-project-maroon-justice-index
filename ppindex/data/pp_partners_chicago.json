@@ -1,0 +1,65 @@
+[
+    {
+     "Name": "Chicago Lights",
+     "Type": "Family Community Resource Center",
+     "Category": "Period Poverty Alleviation Partner Organizations",
+     "Neighborhood": "Near North Side",
+     "Address": "126 East Chestnut Street, Chicago, IL, 60611",
+     "Contact": "Email: chicagolights@fourthchurch.org",
+     "Note": "We are currently open for services Tuesday through Friday. Participants much check in between 9:30-10:30 to receive services. Participants must be 18 years or older. Any one who seeks services during this time is eligible for menstrual and incontinence products that we have in stock."
+    },
+    {
+     "Name": "Pacific Garden Mission",
+     "Type": "Intervention",
+     "Category": "Period Poverty Alleviation Partner Organizations",
+     "Neighborhood": "Near West Side",
+     "Address": "1458 S Canal St, Chicago, IL 60607",
+     "Contact": "Website: https://www.pgm.org",
+     "Note": "Products available to clients"
+    },
+    {
+    "Name": "A Safe Place",
+    "Type": "Intervention",
+    "Category": "Period Poverty Alleviation Partner Organizations",
+    "Neighborhood": "North Lawndale",
+    "Address": "2710 W 17th St, Chicago, IL 60608",
+    "Contact": "Email: info@asafeplaceforhelp.org",
+    "Note": "Products are available regularly and/or upon request to clients in any of our services"
+    },
+    {
+    "Name": "La Casa Norte",
+    "Type": "Youth",
+    "Category": "Period Poverty Alleviation Partner Organizations",
+    "Neighborhood": "Back of the Yards",
+    "Address": "1736 W. 47th Street, Chicago, IL 60609",
+    "Contact": "Emergency Shelter Phone: (773) 276-4900, ext. 251, Youth Drop-In Center Phone: (773) 276-4900, ext. 253, Email: info@lacasanorte.org",
+    "Note": "Emergency shelter beds and services for youth ages 18-24. Hours: 7 days/week: 9pm - 8am. Youth Drop-In Center (ages 16-24) Hours: Monday - Friday 9:00am - 5:30pm. Products are available regularly to clients, including youth who use La Casa Norte’s overnight shelters and weekday drop-ins"
+    },
+    {
+    "Name": "La Casa Norte",
+    "Type": "Youth",
+    "Category": "Period Poverty Alleviation Partner Organizations",
+    "Neighborhood": "Logan Square",
+    "Address": "1940 N. California, Chicago, IL 60647",
+    "Contact": "Phone: (773) 276-4900, ext. 290, Email: info@lacasanorte.org",
+    "Note": "Emergency shelter beds and services for youth ages 18-24. Hours: Monday - Friday: 9pm - 8am, Saturday and Sunday: 24 hours. Products are available regularly to clients, including youth who use La Casa Norte’s overnight shelters"
+    },
+    {
+    "Name": "La Casa Norte",
+    "Type": "Youth",
+    "Category": "Period Poverty Alleviation Partner Organizations",
+    "Neighborhood": "Logan Square",
+    "Address": "1942 N. California, Chicago, IL 60647",
+    "Contact": "Phone: (773) 276-4900, ext. 292, Email: info@lacasanorte.org",
+    "Note": "Emergency shelter beds and services for pregnant & parenting youth with children. Hours: 7 days/week: 7pm - 9am. Products are available regularly to clients, including youth who use La Casa Norte’s overnight shelters"
+    },
+    {
+    "Name": "La Casa Norte",
+    "Type": "Youth",
+    "Category": "Period Poverty Alleviation Partner Organizations",
+    "Neighborhood": "Humboldt Park",
+    "Address": "3533 W. North Avenue, Chicago, IL 60647",
+    "Contact": "Phone: (773) 276-4900, Email: info@lacasanorte.org",
+    "Note": "Youth Drop-In Center (ages 16-24) Hours: Monday - Friday 9:00am - 5:30pm. Products are available regularly to clients during weekday drop-ins."
+    }
+    ]
