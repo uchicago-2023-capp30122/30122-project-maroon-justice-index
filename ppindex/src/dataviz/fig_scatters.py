@@ -31,7 +31,7 @@ def create_index_centers_scatter(font_family, font_size):
         - fig (plotly figure object): a Plotly figure object 
         containing the scatter plot.
     """
-    pp_dta = pd.read_json("data/index_data_for_scatter.json")
+    pp_dta = pd.read_json("ppindex/data/index_data_for_scatter.json")
 
     # Custom colorscale with shades of dark wine red
     custom_reds = colors.make_colorscale(
@@ -58,14 +58,17 @@ def create_index_centers_scatter(font_family, font_size):
 
     # y-axis title
     fig.update_yaxes(title_text='Period Poverty Index',
-                     row=1, col=1, range=[0.05, None])
+                     row=1, col=1, range=[0.05, None], 
+                     title_font=dict(family=font_family, size=font_size))
 
     # x-axis title
     fig.update_xaxes(
-        title_text='Number of Community-Based Services and Commercial Retailers', row=1, col=1)
+        title_text='Number of Community-Based Services and Commercial Retailers', row=1, col=1, 
+                     title_font=dict(family=font_family, size=font_size))
 
     # make the background white
-    fig.update_layout(plot_bgcolor='white')
+    fig.update_layout(plot_bgcolor='white', 
+                     title_font=dict(family=font_family, size=font_size))
 
     return fig
 
@@ -82,7 +85,7 @@ def create_income_population_scatter(font_family, font_size):
     Returns:
     - fig (plotly figure object): A Plotly Figure object containing the scatter plot.
     """
-    pp_dta = pd.read_json("data/index_data_for_scatter.json")
+    pp_dta = pd.read_json("ppindex/data/index_data_for_scatter.json")
 
     # Custom colorscale with shades of dark wine red
     custom_reds = colors.make_colorscale(
@@ -120,8 +123,7 @@ def create_income_population_scatter(font_family, font_size):
                      title_font=dict(family=font_family, size=font_size))
 
     # plot title and background color
-    fig.update_layout(title='Total Eligible Women vs. Average Disposable Income per Month',
-                      plot_bgcolor='white', 
+    fig.update_layout(plot_bgcolor='white', 
                       font=dict(family=font_family, size=font_size))
 
     return fig

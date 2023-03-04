@@ -18,8 +18,10 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 
-# import charts
+# import static graph maker functions
 from .dataviz.fig_index_map import create_idx_maps
+from .dataviz.fig_scatters import create_index_centers_scatter, create_income_population_scatter
+
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -33,14 +35,17 @@ L_SIZE = 12
 fig_idx = create_idx_maps(zoom=9.4, lat=41.8227, lon=-87.6014, 
                 font_family=L_FONT, font_size=LT_SIZE, font_sub_size=L_SIZE)
 
-
 # ---- placeholder map ---------
 
 fig_idx_med = create_idx_maps(zoom=11, lat=41.76113, lon=-87.61485,
                  font_family=L_FONT, font_size=LT_SIZE, font_sub_size=L_SIZE)
 
+# ---- scatterplots --------
 
-# ---------------- community centers map --------------------
+fig_centers_scatter = create_index_centers_scatter(L_FONT, L_SIZE)
+fig_pop_scatter = create_income_population_scatter(L_FONT, L_SIZE)
+
+# --------- interactive community centers map ------------
 
 joined = gpd.read_file("ppindex/src/comm_centers_neighborhoods.geojson")
 joined["lat"] = joined.geometry.y
@@ -55,7 +60,6 @@ def create_cc_maps(df, lat, lon):
            long (int) longitude 
     output: scatter map (plotly express class)
     '''
-
     fig_cc = px.scatter_mapbox(df, 
                         lat=lat, 
                         lon=lon, 
@@ -75,8 +79,7 @@ def create_cc_maps(df, lat, lon):
 
     return fig_cc
 
-# --- neighborhood dropdown options ---
-
+# neighborhood dropdown options
 options = [{'label': neighborhood, 
 'value': neighborhood} for neighborhood in sorted(joined['Neighborhood'\
 ].unique())]
@@ -84,9 +87,6 @@ options[0]['label'] = 'All'
 options[0]['value'] = 'All'
 
 fig_cc = create_cc_maps(joined, 'lat', 'lon')
-
-# ---------------- scatter plot scatter-cc-pp -------------------
-
 
 # --------------------------- html page layout here ----------------------------
 
@@ -119,6 +119,31 @@ app.layout = dbc.Container([
             html.Br(), 'now I am adding a new line break but does this text ']),
         ], width=12) # 12 is maximum you can take
     ], align='end'),
+
+
+    dbc.Row([
+        dbc.Col([
+
+            html.H3("Services, Commercial Retailers and Period Poverty", 
+            style={'text-align':'center'}),
+            
+            dcc.Graph(
+                id='scatter-centers',
+                figure=fig_centers_scatter
+            )
+        ], width=6),
+
+        dbc.Col([
+
+            html.H3('Total Eligible Women and Monthly Disposable Income', 
+            style={'text-align':'center'}),
+            
+            dcc.Graph(
+                id='scatter-pop',
+                figure=fig_pop_scatter
+            )
+        ], width=6)
+    ], align='center'),
 
     # index methodology (?)
 
