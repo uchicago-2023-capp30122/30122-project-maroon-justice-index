@@ -1,8 +1,14 @@
+'''
+Author: Ivanna
+Date: 3/4/2023
+
+Purpose: create index map function to be called in dash app
+'''
+
 import geopandas as gpd
 import pandas as pd
 import plotly.express as px
 import numpy as np
-
 
 def create_idx_maps(zoom, lat, lon, font_family, 
                     font_size, font_sub_size):
