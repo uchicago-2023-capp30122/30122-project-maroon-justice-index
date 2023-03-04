@@ -17,11 +17,12 @@ Once the repo is cloned, in the root directory 30122-project-maroon-justice-inde
 
 
 ## Period Poverty Cook County Map
-
+![Mapping Period Poverty across Cook County](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/map_image.png)
 
 
 ## Map of Neighbourhood Resources and Retail Centers
 
+![Mapping Community Services and Retail Centers by Census Tract](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/community%20centers_image.png)
 
 
 ## Data Insights
