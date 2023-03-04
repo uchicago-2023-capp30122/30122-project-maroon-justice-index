@@ -33,12 +33,12 @@ L_SIZE = 12
 # --------- census tract pp index map ----------------
 
 fig_idx = create_idx_maps(zoom=9.4, lat=41.8227, lon=-87.6014, 
-                font_family=L_FONT, font_size=LT_SIZE, font_sub_size=L_SIZE)
+                font_family=L_FONT, font_size=LT_SIZE, font_sub_size=LT_SIZE)
 
 # ---- scatterplots --------
 
-fig_centers_scatter = create_index_centers_scatter(L_FONT, L_SIZE)
-fig_pop_scatter = create_income_population_scatter(L_FONT, L_SIZE)
+fig_centers_scatter = create_index_centers_scatter(L_FONT, LT_SIZE)
+fig_pop_scatter = create_income_population_scatter(L_FONT, LT_SIZE)
 
 # --------- interactive community centers map ------------
 
@@ -70,7 +70,7 @@ def create_cc_maps(df, lat, lon):
         title_x=0.5, 
         font=dict(family=L_FONT,
                   size=L_SIZE+1),
-        margin={"r":0,"t":0,"l":0,"b":0})
+        margin={"r":0,"t":0,"l":0,"b":10})
 
     return fig_cc
 
@@ -192,58 +192,26 @@ app.layout = dbc.Container([
                 id='map-cc',
                 figure = fig_cc
                 )
-        ], width=10)
+        ], width=10),
+
+        html.Br()
 
     ], align='center'),
 
-    # community centers text
-    dbc.Row([
-        dbc.Col([
-            html.Br(), 
-            html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in\
-            culpa qui officia deserunt mollit anim id est laborum. \
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in\
-             culpa qui officia deserunt mollit anim id est laborum.',
-            html.Br(), 'now I am adding a new line break but does this text ']),
-        ], width=12) 
-    ], align='end'),
-
-    # three filtered maps w highlighted areas
+    # ------------- scatterplot texts ---------------
     dbc.Row([
         html.Br(),
         dbc.Col([
-            html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in\
-            culpa qui officia deserunt mollit anim id est laborum. \
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit'])
-        ], width=12)        
-    ], align='center'),
-
-    dbc.Row([
-        html.Br(),
-        dbc.Col([
-            html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in\
-            culpa qui officia deserunt mollit anim id est laborum. \
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit'])
+            html.P(["In the process of working on creating our period poverty \
+            index and community resources and retailers map, we realized that \
+            some of the Census Tracts with the highest period poverty index \
+            were also some of the tracks with the least resources at walking \
+            distance. The scatter plot below shows the relationship between \
+            the period poverty index we calculated and the number of service \
+            centers and retailers at walking distance. We see that a lot of \
+            period resources are concentrated in areas with low period poverty \
+            levels. Our ultimate hope is to use data to inform policymakers on \
+            the areas where resources are most needed."])
         ], width=12)        
     ], align='center'),
 
@@ -256,7 +224,9 @@ app.layout = dbc.Container([
             dcc.Graph(
                 id='scatter-pop',
                 figure=fig_pop_scatter
-            )
+            ),
+
+            html.Br()
         ], width=8)
 
     ], justify='center'),

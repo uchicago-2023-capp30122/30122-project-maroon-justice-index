@@ -48,7 +48,11 @@ def create_index_centers_scatter(font_family, font_size):
                                      sizeref=0.1,
                                      size=6,
                                      opacity=1,
-                                     colorbar=dict(title='Period Poverty Index', 
+                                     colorbar=dict(title='Period Poverty<br>Index', 
+                                     len=0.8,
+                                     thickness=15,
+                                     ypad=8,
+                                     yanchor='middle',
                                      title_font=dict(family=font_family, size=font_size),
                                      outlinewidth=0)), # remove black margin from color axis
                          text=pp_dta['neighborhood_name'])
@@ -69,7 +73,7 @@ def create_index_centers_scatter(font_family, font_size):
     # plot title and background color
     fig.update_layout(plot_bgcolor='white', 
                       font=dict(family=font_family, size=font_size),
-                      margin={"r":0,"t":0,"l":0,"b":0})
+                      margin={"r":0,"t":0,"l":0,"b":20})
 
     return fig
 
@@ -109,9 +113,13 @@ def create_income_population_scatter(font_family, font_size):
                              size=filtered_data['pp_index']*6,
                              opacity=0.6,
                              colorbar=dict(
-                                 title='Period Poverty Index',
+                                 title='Period Poverty<br>Index',
                                  outlinecolor='white',
                                  outlinewidth=0,
+                                 len=0.8,
+                                 thickness=15,
+                                 ypad=8,
+                                 yanchor='middle',
                                  title_font=dict(family=font_family, size=font_size),
                              ),
                          ),
@@ -133,6 +141,6 @@ def create_income_population_scatter(font_family, font_size):
     # plot title and background color
     fig.update_layout(plot_bgcolor='white', 
                       font=dict(family=font_family, size=font_size),
-                      margin={"r":0,"t":0,"l":0,"b":0})
+                      margin={"r":0,"t":0,"l":0,"b":10})
 
     return fig
