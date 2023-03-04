@@ -124,7 +124,7 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
 
-            html.H3('CC Scatter', 
+            html.H3("Services, Commercial Retailers and Period Poverty", 
             style={'text-align':'center'}),
             
             dcc.Graph(
@@ -135,7 +135,7 @@ app.layout = dbc.Container([
 
         dbc.Col([
 
-            html.H3('Pop Scatter', 
+            html.H3('Total Eligible Women and Monthly Disposable Income', 
             style={'text-align':'center'}),
             
             dcc.Graph(
