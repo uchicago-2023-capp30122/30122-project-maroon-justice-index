@@ -1,5 +1,7 @@
-# Author: Betty
-# Date: 02/28/22
+'''
+Author: Betty
+Date: 2/28/23
+'''
 
 import json
 import pandas as pd
@@ -9,7 +11,6 @@ def proximity_analysis(lat=41.854, lon=-87.71):
     """
     Takes a pair of latitude & longitude coordinates and returns the number of
     IDHS offices/service providers within an approx 1 mile (1609 meters) radius 
-
     """
 
     # create dataframe for centroid with latitude and longitude as attributes

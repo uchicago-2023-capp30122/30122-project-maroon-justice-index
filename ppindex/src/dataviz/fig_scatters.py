@@ -48,7 +48,9 @@ def create_index_centers_scatter(font_family, font_size):
                                      sizeref=0.1,
                                      size=6,
                                      opacity=1,
-                                     colorbar=dict(title='Period Poverty Index')),
+                                     colorbar=dict(title='Period Poverty Index', 
+                                     title_font=dict(family=font_family, size=font_size),
+                                     outlinewidth=0)), # remove black margin from color axis
                          text=pp_dta['neighborhood_name'])
 
     fig = make_subplots(rows=1, cols=1, specs=[[{}]], shared_xaxes=True,
@@ -57,18 +59,16 @@ def create_index_centers_scatter(font_family, font_size):
     fig.add_trace(scatter, row=1, col=1)
 
     # y-axis title
-    fig.update_yaxes(title_text='Period Poverty Index',
-                     row=1, col=1, range=[0.05, None], 
+    fig.update_yaxes(title_text='Period Poverty Index', row=1, col=1, 
                      title_font=dict(family=font_family, size=font_size))
 
     # x-axis title
-    fig.update_xaxes(
-        title_text='Number of Community-Based Services and Commercial Retailers', row=1, col=1, 
+    fig.update_xaxes(title_text='Number of Service Centers and Retailers', row=1, col=1, 
                      title_font=dict(family=font_family, size=font_size))
 
-    # make the background white
+    # plot title and background color
     fig.update_layout(plot_bgcolor='white', 
-                     title_font=dict(family=font_family, size=font_size))
+                      font=dict(family=font_family, size=font_size))
 
     return fig
 
@@ -99,14 +99,21 @@ def create_income_population_scatter(font_family, font_size):
     scatter = go.Scatter(x=filtered_data['avg_disposable_income_per_month'],
                          y=filtered_data['total_eligible_women'],
                          mode='markers',
-                         marker=dict(color=filtered_data['pp_index'],
-                                     colorscale=custom_reds,
-                                     reversescale=False,
-                                     sizemode='diameter',
-                                     sizeref=0.1,
-                                     size=filtered_data['pp_index']*6,
-                                     opacity=0.6,
-                                     colorbar=dict(title='Period Poverty Index')),
+                         marker=dict(
+                             color=filtered_data['pp_index'],
+                             colorscale=custom_reds,
+                             reversescale=False,
+                             sizemode='diameter',
+                             sizeref=0.1,
+                             size=filtered_data['pp_index']*6,
+                             opacity=0.6,
+                             colorbar=dict(
+                                 title='Period Poverty Index',
+                                 outlinecolor='white',
+                                 outlinewidth=0,
+                                 title_font=dict(family=font_family, size=font_size),
+                             ),
+                         ),
                          text=filtered_data['neighborhood_name'])
 
     fig = make_subplots(rows=1, cols=1, specs=[[{}]], shared_xaxes=True,
@@ -115,7 +122,7 @@ def create_income_population_scatter(font_family, font_size):
     fig.add_trace(scatter, row=1, col=1)
 
     # y-axis title
-    fig.update_yaxes(title_text='Total Eligible Women', row=1, col=1, 
+    fig.update_yaxes(title_text='Number of Menstruating People', row=1, col=1, 
                      title_font=dict(family=font_family, size=font_size))
 
     # x-axis title
