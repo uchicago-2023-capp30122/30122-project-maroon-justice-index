@@ -1,7 +1,9 @@
-# Author: Ivanna
-# Date: 2/26/23
-# Purpose: filter community centers json file webscrapped by Betty
-#          to be able to geocode only centers in chicago/cook county
+'''
+Author: Ivanna
+Date: 2/26/23
+Purpose: filter community centers json file webscrapped by Betty
+         to be able to geocode only centers in chicago/cook county
+'''
 
 import json
 import numpy as np
@@ -22,6 +24,3 @@ zip_codes['zip'])] # 592 obs remaining
 
 # save filtered dataset
 community_centers.to_json('data/community_centers_chicago.json')
-
-
-
