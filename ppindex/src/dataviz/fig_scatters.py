@@ -68,7 +68,8 @@ def create_index_centers_scatter(font_family, font_size):
 
     # plot title and background color
     fig.update_layout(plot_bgcolor='white', 
-                      font=dict(family=font_family, size=font_size))
+                      font=dict(family=font_family, size=font_size),
+                      margin={"r":0,"t":0,"l":0,"b":0})
 
     return fig
 
@@ -131,6 +132,7 @@ def create_income_population_scatter(font_family, font_size):
 
     # plot title and background color
     fig.update_layout(plot_bgcolor='white', 
-                      font=dict(family=font_family, size=font_size))
+                      font=dict(family=font_family, size=font_size),
+                      margin={"r":0,"t":0,"l":0,"b":0})
 
     return fig
