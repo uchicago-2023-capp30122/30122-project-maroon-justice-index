@@ -1,3 +1,14 @@
+'''
+CAPP 122: Project Maroon Justice Index
+Jimena Salinas
+Code for creating a scatter plot that
+shows the relationship between period poverty
+index values and the number of community 
+resource centers and retailers, and a scatter
+for showing the relationship between income,
+number of eligible women, and index.
+'''
+
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import plotly.colors as colors
@@ -59,18 +70,21 @@ def create_index_centers_scatter(font_family, font_size):
     return fig
 
 
-def create_income_population_scatter():
+def create_income_population_scatter(font_family, font_size):
     """
     Creates a scatter plot of total eligible women vs. average disposable 
     income per month, filtered to show only income per month of 2,900 or less.
 
+    Parameters:
+    - font_family (str): font family for plot titles and axis labels
+    - font_size (int): font size for plot titles and axis labels
+
     Returns:
-     - fig (plotly fugure object): A Plotly Figure
-    object containing the scatter plot.
+    - fig (plotly figure object): A Plotly Figure object containing the scatter plot.
     """
     pp_dta = pd.read_json("data/index_data_for_scatter.json")
 
-    # Custom colorscale dark wine red
+    # Custom colorscale with shades of dark wine red
     custom_reds = colors.make_colorscale(
         ['#FFEEEE', '#E27B91', '#C83652', '#722f37'])
 
@@ -98,13 +112,16 @@ def create_income_population_scatter():
     fig.add_trace(scatter, row=1, col=1)
 
     # y-axis title
-    fig.update_yaxes(title_text='Total Eligible Women', row=1, col=1)
+    fig.update_yaxes(title_text='Total Eligible Women', row=1, col=1, 
+                     title_font=dict(family=font_family, size=font_size))
 
     # x-axis title
-    fig.update_xaxes(
-        title_text='Average Disposable Income per Month', row=1, col=1)
+    fig.update_xaxes(title_text='Average Disposable Income per Month', row=1, col=1, 
+                     title_font=dict(family=font_family, size=font_size))
 
-    # set title and make the background white
-    fig.update_layout(plot_bgcolor='white')
+    # plot title and background color
+    fig.update_layout(title='Total Eligible Women vs. Average Disposable Income per Month',
+                      plot_bgcolor='white', 
+                      font=dict(family=font_family, size=font_size))
 
     return fig
