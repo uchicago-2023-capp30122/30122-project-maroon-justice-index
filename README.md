@@ -41,6 +41,8 @@ In the process of working on creating our period poverty index and community res
 ![Period Poverty, Services, and Commercial Retailers](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/community_centers_index.png)
 
 
-It is especially important to consider areas with high period poverty rates and large numbers of menstruating people. The graph below helped us identify tracts with a high number of menstruating people and a high poverty index. For instance, the graph below highlights a few tracts within neighbourhoods like Riverdale, Washington Park, South Deering, Chatham, Humbolt Park, and Englewood, where additional resources could be greatly  beneficial.
+It is especially important to consider areas with high period poverty rates and large numbers of menstruating people. The graph below helped us identify tracts with a high number of menstruating people and low monthly disposable incomes. For instance, the graph below highlights a few tracts within neighbourhoods like Riverdale, Washington Park, South Deering, Chatham, Humbolt Park, and Englewood, where additional resources could be greatly  beneficial.
 
 ![Menstruating People and Disposable Income](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/income_pop.png)
+
+
