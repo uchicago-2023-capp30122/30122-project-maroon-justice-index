@@ -24,8 +24,8 @@ L_SIZE = 12
 
 # --------- census tract pp index map ----------------
 
-census_tracts = gpd.read_file("boundaries_census_tracts_2010.geojson")
-df = pd.read_json("index_w_neigh_names.json")
+census_tracts = gpd.read_file("ppindex/src/boundaries_census_tracts_2010.geojson")
+df = pd.read_json("ppindex/src/index_w_neigh_names.json")
 df = df.rename(columns={'tract':'Census Tract', 'pp_index':'Period Poverty Index'})
 
 def create_idx_maps(df, gdf, zoom, lat, lon):
@@ -82,7 +82,7 @@ fig_idx_med = create_idx_maps(df, census_tracts, 11, 41.76113, -87.61485)
 
 # ---------------- community centers map --------------------
 
-joined = gpd.read_file("comm_centers_neighborhoods.geojson")
+joined = gpd.read_file("ppindex/src/comm_centers_neighborhoods.geojson")
 joined["lat"] = joined.geometry.y
 joined["lon"] = joined.geometry.x
 
