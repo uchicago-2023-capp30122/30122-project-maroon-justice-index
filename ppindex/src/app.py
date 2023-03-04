@@ -35,11 +35,6 @@ L_SIZE = 12
 fig_idx = create_idx_maps(zoom=9.4, lat=41.8227, lon=-87.6014, 
                 font_family=L_FONT, font_size=LT_SIZE, font_sub_size=L_SIZE)
 
-# ---- placeholder map ---------
-
-fig_idx_med = create_idx_maps(zoom=11, lat=41.76113, lon=-87.61485,
-                 font_family=L_FONT, font_size=LT_SIZE, font_sub_size=L_SIZE)
-
 # ---- scatterplots --------
 
 fig_centers_scatter = create_index_centers_scatter(L_FONT, L_SIZE)
@@ -102,50 +97,43 @@ app.layout = dbc.Container([
         ], width=12) 
     ], align='end'),
 
-    # intro
+    # ----------- intro + index map ---------------
     dbc.Row([
         dbc.Col([
             html.Br(),
-            html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in \
-            culpa qui officia deserunt mollit anim id est laborum. \
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat null', 
-            html.Br(), 'now I am adding a new line break but does this text ']),
+            html.P(["Period poverty is defined as “limited or inadequate \
+            access to menstrual products or menstrual health education as a \
+            result of financial constraints or negative socio-cultural stigmas \
+            associated with menstruation.” Period poverty can be harmful to \
+            one’s health, such as using products longer than recommended, and \
+            harmful to one's emotional well-being, such as missing work or school. \
+            Period poverty disproportionately affects those who are impoverished \
+            or experiencing homelessness."]),
         ], width=12) # 12 is maximum you can take
     ], align='end'),
 
-
     dbc.Row([
         dbc.Col([
+            html.P(["We wanted to understand this disparity geographically in \
+            Cook County, IL. We focused on factors such as income, public \
+            assistance usage, number of menstruating people, percent of income \
+            spent on rent, and proximity to community-based services. Using \
+            these variables, we created an index at the census tract level and \
+            visualized it on a map. We found that the risk of period poverty \
+            was concentrated in three areas – west side, south side and far \
+            south side. We also found that the number of community centers was \
+            correlated with our index: areas with less access to \
+            community-based services were, on average, at higher risk of \
+            period poverty. From this analysis, we were able to identify \
+            neighborhoods that would benefit the most from greater access to \
+            free menstrual care resources."]),
 
-            html.H3("Services, Commercial Retailers and Period Poverty", 
-            style={'text-align':'center'}),
-            
-            dcc.Graph(
-                id='scatter-centers',
-                figure=fig_centers_scatter
-            )
-        ], width=6),
+            html.P(["Below is a map illustrating our resulting index for each \
+            census tract in Chicago. Hover over each census tract to view the \
+            index value, and the neighborhood each tract is located within."])
 
-        dbc.Col([
-
-            html.H3('Total Eligible Women and Monthly Disposable Income', 
-            style={'text-align':'center'}),
-            
-            dcc.Graph(
-                id='scatter-pop',
-                figure=fig_pop_scatter
-            )
-        ], width=6)
-    ], align='center'),
-
-    # index methodology (?)
+        ], width=12) # 12 is maximum you can take
+    ], align='end'),
 
     # index map
     dbc.Row([
@@ -160,28 +148,25 @@ app.layout = dbc.Container([
         ], width=12)
     ], align='center'),
 
-    # community centers text
+    # --------- community centers map text -------------
     dbc.Row([
         dbc.Col([
             html.Br(), # add space above header
-            html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat \
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, \
-            sunt in culpa qui officia deserunt mollit anim id est laborum.\
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in\
-            culpa qui officia deserunt mollit anim id est laborum. \
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in'])
+            html.P(["It was important for us to incorporate existing community \
+            services and commercial retailers providing period products into our \
+            index. For people in need, having a community service nearby could \
+            ameliorate their lack of access to period products. To find existing \
+            resources around Chicago, we built a webscraper to compile \
+            the addresses for community-based services and commercial retailers, \
+            and reached out to period poverty alleviation organizations in Chicago \
+            to understand the services offered and restrictions (if any) to access \
+            period products."]),
+
+            html.P(["The map below includes all the resources we scraped, and \
+            the organizations that consented to being added to the map. Choose \
+            your neighborhood from the dropdown on the left to find the resources \
+            closest to you."])
+
         ], width = 12, align='end') # how do u add padding...?
     ], align='end'),
 
@@ -245,18 +230,64 @@ app.layout = dbc.Container([
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in\
             culpa qui officia deserunt mollit anim id est laborum. \
             Lorem ipsum dolor sit amet, consectetur adipiscing elit'])
-        ], width=6),
+        ], width=12)        
+    ], align='center'),
+
+    dbc.Row([
+        html.Br(),
+        dbc.Col([
+            html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
+            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in\
+            culpa qui officia deserunt mollit anim id est laborum. \
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit'])
+        ], width=12)        
+    ], align='center'),
+
+    dbc.Row([
+        dbc.Col([
+
+            html.H3('Menstruating People and Disposable Income', 
+            style={'text-align':'center'}),
+            
+            dcc.Graph(
+                id='scatter-pop',
+                figure=fig_pop_scatter
+            )
+        ], width=8)
+
+    ], justify='center'),
+
+    dbc.Row([
+        html.Br(),
+        dbc.Col([
+            html.P(['Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris \
+            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in \
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in\
+            culpa qui officia deserunt mollit anim id est laborum. \
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit'])
+        ], width=12)        
+    ], align='center'),
+
+    dbc.Row([
         
         dbc.Col([
 
-            html.H3('Radius Map Will Go Here(ish)', 
+            html.H3("Period Poverty, Services, and Commercial Retailers", 
             style={'text-align':'center'}),
-
+            
             dcc.Graph(
-                id='map-idx-med',
-                figure = fig_idx_med)
-        ], width=6)
-    ], align='center')
+                id='scatter-centers',
+                figure=fig_centers_scatter
+            )
+        ], width=8)
+    ], justify='center')
 
 ])
 
