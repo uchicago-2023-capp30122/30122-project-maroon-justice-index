@@ -1,6 +1,8 @@
 <!-- [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=9875283&assignment_repo_type=AssignmentRepo) -->
 
-Authors: Betty Fang, Ivanna Rodriguez, Jimena Salinas, Diamon Dunlap
+# Cook County Period Poverty Index 
+
+## Authors: Betty Fang, Ivanna Rodriguez, Jimena Salinas, Diamon Dunlap
 
 Period poverty is defined as “limited or inadequate access to menstrual products or menstrual health education as a result of financial constraints or negative socio-cultural stigmas associated with menstruation.” Period poverty can be harmful to one’s health, such as using products longer than recommended, and emotional well-being, such as missing work or school due to period leaks, pain and shame. Period poverty is disproportionately affecting those who are impoverished or experiencing homelessness. 
  
@@ -13,3 +15,13 @@ Once the repo is cloned, in the root directory 30122-project-maroon-justice-inde
 2.	Run *poetry shell* to activate the virtual environment
 3.	Run *python -m ppindex* to open the webapp
 
+
+## Period Poverty Cook County Map
+
+
+
+## Map of Neighbourhood Resources and Retail Centers
+
+
+
+## Data Insights
