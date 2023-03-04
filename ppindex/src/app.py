@@ -11,73 +11,33 @@ Date: 3/3/2023
 from dash import Dash, html, dcc, Input, Output
 import dash_bootstrap_components as dbc
 import plotly.express as px
+import plotly.colors as colors
+from plotly.subplots import make_subplots
+import plotly.graph_objs as go
 import pandas as pd
 import geopandas as gpd
 import numpy as np
 
+# import charts
+from .dataviz.fig_index_map import create_idx_maps
+
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-# ----------------------- data and maps here -----------------------------------
+# ----------------------- data and charts here ---------------------------------
 L_FONT = "Work Sans, sans-serif"
 LT_SIZE = 16
 L_SIZE = 12
 
 # --------- census tract pp index map ----------------
 
-census_tracts = gpd.read_file("ppindex/src/boundaries_census_tracts_2010.geojson")
-df = pd.read_json("ppindex/src/index_w_neigh_names.json")
-df = df.rename(columns={'tract':'Census Tract', 'pp_index':'Period Poverty Index'})
+fig_idx = create_idx_maps(zoom=9.4, lat=41.8227, lon=-87.6014, 
+                font_family=L_FONT, font_size=LT_SIZE, font_sub_size=L_SIZE)
 
-def create_idx_maps(df, gdf, zoom, lat, lon):
-    '''
-    this function creates the period poverty index choropleth
 
-    inputs: df (pandas dataframe)
-            gdf (geopandas dataframe)
-            zoom (int) zoom level for displaying map
-            lat (int) latitute for displaying map 
-            lon (lon) longitude for displaying map
-    output: choropleth map (plotly express class)
-    '''
+# ---- placeholder map ---------
 
-    fig = px.choropleth_mapbox(
-        df, 
-        geojson = census_tracts, 
-        locations = "Census Tract", 
-        featureidkey="properties.tractce10",
-        color="Period Poverty Index", color_continuous_scale="amp", 
-               range_color=(0, 1), 
-        mapbox_style="carto-positron", opacity=0.5,
-        hover_name="neighborhood_name",
-        center={"lat": lat, "lon": lon}, zoom=zoom)
-
-    fig.update_geos(fitbounds="locations", visible=False)
-    fig.update_layout(
-        title_x=0.5,
-        font=dict(family=L_FONT), 
-        margin={"r":0,"t":0,"l":0,"b":0}) 
-    fig.update_coloraxes( # edit legend
-        colorbar=dict(
-            title=dict(text="Period Poverty<br>Index", 
-                       font=dict(size=LT_SIZE)),
-            tickfont=dict(size=L_SIZE),
-            orientation='v', 
-            len=0.8,
-            thickness=15,
-            ypad=8,
-            yanchor='middle'))
-    fig.update_traces( # polygon border
-        marker_line_width=0.8, marker_line_color='white')
-
-    return fig
-
-fig_idx = create_idx_maps(df, census_tracts, 9.4, 41.8227, -87.6014)
-
-# --------- filtered census tract pp index maps -------------
-
-# we can just change map zoom and coordinates?
-
-fig_idx_med = create_idx_maps(df, census_tracts, 11, 41.76113, -87.61485)
+fig_idx_med = create_idx_maps(zoom=11, lat=41.76113, lon=-87.61485,
+                 font_family=L_FONT, font_size=LT_SIZE, font_sub_size=L_SIZE)
 
 
 # ---------------- community centers map --------------------
@@ -124,6 +84,9 @@ options[0]['label'] = 'All'
 options[0]['value'] = 'All'
 
 fig_cc = create_cc_maps(joined, 'lat', 'lon')
+
+# ---------------- scatter plot scatter-cc-pp -------------------
+
 
 # --------------------------- html page layout here ----------------------------
 
