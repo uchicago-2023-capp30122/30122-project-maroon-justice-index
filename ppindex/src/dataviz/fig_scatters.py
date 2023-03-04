@@ -8,12 +8,6 @@ resource centers and retailers, and a scatter
 for showing the relationship between income,
 number of eligible women, and index.
 '''
-
-import plotly.graph_objs as go
-from plotly.subplots import make_subplots
-import plotly.colors as colors
-
-import pandas as pd
 import pandas as pd
 
 import plotly.graph_objs as go
