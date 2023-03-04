@@ -20,6 +20,7 @@ import numpy as np
 
 # import static graph maker functions
 from .dataviz.fig_index_map import create_idx_maps
+from .dataviz.fig_scatters import create_index_centers_scatter, create_income_population_scatter
 
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -41,6 +42,8 @@ fig_idx_med = create_idx_maps(zoom=11, lat=41.76113, lon=-87.61485,
 
 # ---- scatterplots --------
 
+fig_centers_scatter = create_index_centers_scatter(L_FONT, L_SIZE)
+fig_pop_scatter = create_income_population_scatter(L_FONT, L_SIZE)
 
 # --------- interactive community centers map ------------
 
@@ -116,6 +119,31 @@ app.layout = dbc.Container([
             html.Br(), 'now I am adding a new line break but does this text ']),
         ], width=12) # 12 is maximum you can take
     ], align='end'),
+
+
+    dbc.Row([
+        dbc.Col([
+
+            html.H3('CC Scatter', 
+            style={'text-align':'center'}),
+            
+            dcc.Graph(
+                id='scatter-centers',
+                figure=fig_centers_scatter
+            )
+        ], width=6),
+
+        dbc.Col([
+
+            html.H3('Pop Scatter', 
+            style={'text-align':'center'}),
+            
+            dcc.Graph(
+                id='scatter-pop',
+                figure=fig_pop_scatter
+            )
+        ], width=6)
+    ], align='center'),
 
     # index methodology (?)
 
