@@ -50,7 +50,6 @@ joined = joined[["Community Center", "Type", "Category", "Neighborhood",
                  "geometry"]]
 gdf = gdf.rename(columns={"Name":"Community Center"})
 joined = pd.concat([joined, gdf])
-# joined = joined.append(gdf, ignore_index = True)
 
 def create_cc_maps(df, lat, lon):
     '''
