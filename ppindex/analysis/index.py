@@ -1,18 +1,17 @@
 # Author : Diamon Dunlap
 # Purpose : Computes the index for risk of period poverty by census tract
 
-import requests
 import pandas as pd
 
 #### READ IN DATA #####
 # main census data
-census_df = pd.read_json('data/Census_Cook_County_dta.json')
+census_df = pd.read_json('ppindex/data/Census_Cook_County_dta.json')
 
 # SNAP benefits income as a proxy for public asssistance income
-snap_allowable = pd.read_csv('data/snap_allowable_income.csv')
+snap_allowable = pd.read_csv('ppindex/data/snap_allowable_income.csv')
 snap_allowable = snap_allowable.iloc[:,:2]
 
-snap_benefits = pd.read_csv('data/snap_benefits.csv')
+snap_benefits = pd.read_csv('ppindex/data/snap_benefits.csv')
 
 snap_benefits = snap_benefits.iloc[:, :2]
 
@@ -185,7 +184,7 @@ disposable_income_sex_age['county_name'] = disposable_income_sex_age.census_name
 disposable_income_sex_age = disposable_income_sex_age.dropna()
 
 # join to community center counts
-comm_counts = pd.read_json('data/Tract_center_counts.json')
+comm_counts = pd.read_json('ppindex/data/Tract_center_counts.json')
 
 disposable_income_sex_age = pd.merge(disposable_income_sex_age, comm_counts, on=['tract'], how='left')
 disposable_income_sex_age['number_of_centers'] = disposable_income_sex_age['number_of_centers'].fillna(0)
@@ -209,11 +208,6 @@ disposable_income_sex_age['pp_index'] = disposable_income_sex_age.pp_index_raw *
 disposable_income_sex_age['pp_index'] = (disposable_income_sex_age.pp_index - disposable_income_sex_age.pp_index.min())/ \
                 (disposable_income_sex_age.pp_index.max() - disposable_income_sex_age.pp_index.min())
 
-
-# disposable_income_sex_age['pp_index'] = (disposable_income_sex_age.pp_index - disposable_income_sex_age.pp_index.mean())/ \
-#                                                 disposable_income_sex_age.pp_index.std()
-
-
 # export to json
 # MAP 1
-disposable_income_sex_age.to_json(path_or_buf='data/pp_index.json')
+disposable_income_sex_age.to_json(path_or_buf='ppindex/data/pp_index.json')
