@@ -32,7 +32,7 @@ Once we had our Census Tract demographic data and our service centers and retail
 
 ## Period Poverty Cook County Map
 
-Below is a map illustrating our resulting index for each census tract in Chicago. Hover over each census tract to view the index value, and the neighborhood each tract is located within.
+Below is a map illustrating our resulting index for each census tract in Chicago. In our Dash app, you can hover over each census tract to view the index value, and the neighborhood each tract is located within.
 
 ![Mapping Period Poverty across Cook County](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/map_image.png)
 
