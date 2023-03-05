@@ -18,6 +18,8 @@ Once the repo is cloned, in the root directory 30122-project-maroon-justice-inde
 3.	Run *python -m ppindex* to open the webapp
 
 
+![GitHub Project Structure](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/structure_diagram.jpeg)
+
 ## Period Poverty Cook County Map
 
 Below is a map illustrating our resulting index for each census tract in Chicago. Hover over each census tract to view the index value, and the neighborhood each tract is located within.
