@@ -20,7 +20,11 @@ def create_index_centers_scatter(font_family, font_size):
     Creates a scatter plot of the Period Poverty Index (pp_index) vs. 
     the number of community-based services and commercial
     retailers for each US Census tract in Illinois.
-
+    Inputs:
+        - font family (str): the font type for the viz annotations,
+        axis labels, color axis.
+        - font size (int): the font size for the viz annotations,
+        axis labels, color axis.
     Returns:
         - fig (plotly figure object): a Plotly figure object 
         containing the scatter plot.
@@ -78,7 +82,7 @@ def create_income_population_scatter(font_family, font_size):
     income per month, filtered to show only income per month of 2,900 or less.
 
     Parameters:
-    - font_family (str): font family for plot titles and axis labels
+    - font_family (str): font type for plot titles and axis labels
     - font_size (int): font size for plot titles and axis labels
 
     Returns:
