@@ -16,11 +16,25 @@ To visualize our results we built a Dash app, here are the steps to run the app:
 Setting up virtual environment using poetry
 
 Once the repo is cloned, in the root directory 30122-project-maroon-justice-index:
+
 1.	Run *poetry install* to install the necessary packages
+
+```python 
+poetry install
+```
 2.	Run *poetry shell* to activate the virtual environment
+
+```python
+poetry shell
+```
+
 3.	Run *python -m ppindex* to open the webapp
 
-The diagram below illustrates the basic structure for our project. To collect the data we needed for our analysis we used two different tables from the American Community Survey (ACS) API, maintained by the U.S. Census Bereau, and we built a webscraper to compile the addresses for community-based services and commercial retailers. Additionally, we personally reached out to period poverty alleviation organizations in Chicago to compile a list of community resources and we asked for conscent to include these resources in our map.
+```python
+python -m ppindex
+```
+
+The diagram below illustrates the basic structure for our project. To collect the data we needed for our analysis we used two different tables from the American Community Survey (ACS) API, maintained by the U.S. Census Bureau, and we built a webscraper to compile the addresses for community-based services and commercial retailers. Additionally, we personally reached out to period poverty alleviation organizations in Chicago to compile a list of community resources and we asked for conscent to include these resources in our map.
 
 Once we had our Census Tract demographic data and our service centers and retail data, we built a Python class using GeoPandas to identify the number of service centers within walking distance to the centroid of each Census Tract. This information was then incorporated into our period poverty index.
 
