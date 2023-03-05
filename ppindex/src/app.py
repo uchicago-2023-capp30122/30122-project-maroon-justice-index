@@ -1,11 +1,10 @@
 '''
+Author: Ivanna
+
 This app renders the Dash application for our project
 
-Run this app with `python3 src/app.py` and visit
-http://127.0.0.1:8050/ in your web browser.
-
-Author: Ivanna
-Date: 3/3/2023
+Run this app with `python -m ppindex` and visit
+http://127.0.0.1:8050/ in your web browser
 '''
 
 from dash import Dash, html, dcc, Input, Output
@@ -23,21 +22,23 @@ from .dataviz.fig_scatters import create_index_centers_scatter, create_income_po
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # ----------------------- data and charts here ---------------------------------
+
+# global vars to store fonts and sizes for graphs
 L_FONT = "Work Sans, sans-serif"
 LT_SIZE = 16
-L_SIZE = 12
+L_SIZE = 14
 
-# --------- census tract pp index map ----------------
+# ------ census tract pp index map --------
 
 fig_idx = create_idx_maps(zoom=9.4, lat=41.8227, lon=-87.6014, 
-                font_family=L_FONT, font_size=LT_SIZE, font_sub_size=LT_SIZE)
+                font_family=L_FONT, font_size=LT_SIZE)
 
 # ---- scatterplots --------
 
 fig_centers_scatter = create_index_centers_scatter(L_FONT, LT_SIZE)
 fig_pop_scatter = create_income_population_scatter(L_FONT, LT_SIZE)
 
-# --------- interactive community centers map ------------
+# ------ interactive community centers map ----------
 
 joined = gpd.read_file("ppindex/src/comm_centers_neighborhoods.geojson")
 joined = joined[["Community Center", "Type", "Category", "Neighborhood", 
@@ -45,7 +46,6 @@ joined = joined[["Community Center", "Type", "Category", "Neighborhood",
                  "geometry"]]
 gdf = gdf.rename(columns={"Name":"Community Center"})
 joined = pd.concat([joined, gdf])
-# joined = joined.append(gdf, ignore_index = True)
 
 def create_cc_maps(df, lat, lon):
     '''
@@ -111,7 +111,7 @@ app.layout = dbc.Container([
             harmful to one's emotional well-being, such as missing work or school. \
             Period poverty disproportionately affects those who are impoverished \
             or experiencing homelessness."]),
-        ], width=12) # 12 is maximum you can take
+        ], width=12)
     ], align='end'),
 
     dbc.Row([
@@ -134,7 +134,7 @@ app.layout = dbc.Container([
             census tract in Chicago. Hover over each census tract to view the \
             index value, and the neighborhood each tract is located within."])
 
-        ], width=12) # 12 is maximum you can take
+        ], width=12) 
     ], align='end'),
 
     # index map
@@ -169,7 +169,7 @@ app.layout = dbc.Container([
             your neighborhood from the dropdown on the left to find the resources \
             closest to you."])
 
-        ], width = 12, align='end') # how do u add padding...?
+        ], width = 12, align='end') 
     ], align='end'),
 
     # community centers map
@@ -200,7 +200,7 @@ app.layout = dbc.Container([
 
     ], align='center'),
 
-    # ------------- scatterplot texts ---------------
+    # --------- scatterplot texts -------------
     dbc.Row([
         html.Br(),
         dbc.Col([
@@ -262,6 +262,8 @@ app.layout = dbc.Container([
 
     ], justify='center'),
 
+    # ----- conclusion text -------
+
     dbc.Row([
         html.Br(),
         dbc.Col([
@@ -298,7 +300,7 @@ app.layout = dbc.Container([
 
 ])
 
-# ---------------------------- app callback --------------------------------
+# ------------------- interactive cc map app callback --------------------------
 
 @app.callback(
     Output('map-cc', 'figure'),
@@ -326,6 +328,3 @@ def update_map(neighborhood_dropdown):
         fig['layout']['mapbox']['zoom'] = zoom_level
 
     return fig
-
-if __name__ == '__main__':
-    app.run_server(debug=True)

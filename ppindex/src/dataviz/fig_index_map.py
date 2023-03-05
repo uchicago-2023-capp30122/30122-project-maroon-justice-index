@@ -12,7 +12,7 @@ import numpy as np
 import plotly.colors as colors
 
 def create_idx_maps(zoom, lat, lon, font_family, 
-                    font_size, font_sub_size):
+                    font_size):
     '''
     this function creates the period poverty index choropleth
 
@@ -49,7 +49,7 @@ def create_idx_maps(zoom, lat, lon, font_family,
         colorbar=dict(
             title=dict(text="Period Poverty<br>Index", 
                        font=dict(size=font_size)),
-            tickfont=dict(size=font_sub_size),
+            tickfont=dict(size=font_size),
             orientation='v', 
             len=0.8,
             thickness=15,
