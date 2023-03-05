@@ -1,8 +1,9 @@
 '''
 CAPP 122: Project Maroon Justice Index
 Jimena Salinas
-Code for calling the US Census API and constructing 
-a JSON data file
+Code for calling the US Census API, and 
+merging the different tables called for constructing 
+a master JSON data file for analysis
 '''
 
 import requests
