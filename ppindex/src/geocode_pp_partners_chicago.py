@@ -29,4 +29,6 @@ geometry = gpd.points_from_xy(new_df['lon'], new_df['lat'])
 
 new_gdf = gpd.GeoDataFrame(new_df, geometry=geometry)
 
-gdf = gdf.append(new_gdf, ignore_index = True)
+gdf = pd.concat([gdf, new_gdf])
+
+# gdf = gdf.append(new_gdf, ignore_index = True)

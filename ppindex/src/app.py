@@ -49,7 +49,8 @@ joined = joined[["Community Center", "Type", "Category", "Neighborhood",
                  "Address", "Contact", "Note", "gcode", "lat", "lon",
                  "geometry"]]
 gdf = gdf.rename(columns={"Name":"Community Center"})
-joined = joined.append(gdf, ignore_index = True)
+joined = pd.concat([joined, gdf])
+# joined = joined.append(gdf, ignore_index = True)
 
 def create_cc_maps(df, lat, lon):
     '''
@@ -222,6 +223,35 @@ app.layout = dbc.Container([
     ], align='center'),
 
     dbc.Row([
+        
+        dbc.Col([
+
+            html.H3("Period Poverty, Services, and Commercial Retailers", 
+            style={'text-align':'center'}),
+            
+            dcc.Graph(
+                id='scatter-centers',
+                figure=fig_centers_scatter
+            ),
+            html.Br()
+        ], width=8)
+    ], justify='center'),
+
+    dbc.Row([
+        html.Br(),
+        dbc.Col([
+            html.P(["It is especially important to consider areas with high \
+            period poverty rates and large numbers of menstruating people. The \
+            graph below helped us identify tracts with a high number of \
+            menstruating people and low montly disposable incomes. For instance, \
+            the graph below highlights a few tracts within neighbourhoods like \
+            Riverdale, Washington Park, South Deering, Chatham, Humbolt Park, \
+            and Englewood, where additional resources could be greatly \
+            beneficial."])
+        ], width=12)        
+    ], align='center'),
+
+    dbc.Row([
         dbc.Col([
 
             html.H3('Menstruating People and Disposable Income', 
@@ -235,35 +265,8 @@ app.layout = dbc.Container([
             html.Br()
         ], width=8)
 
-    ], justify='center'),
-
-    dbc.Row([
-        html.Br(),
-        dbc.Col([
-            html.P(["It is especially important to consider areas with high \
-            period poverty rates and large numbers of menstruating people. The \
-            graph below helped us identify tracts with a high number of \
-            menstruating people and a high poverty index. For instance, the \
-            graph below highlights a few tracts within neighbourhoods like \
-            Riverdale, Washington Park, South Deering, Chatham, Humbolt Park, \
-            and Englewood, where additional resources could be greatly \
-            beneficial."])
-        ], width=12)        
-    ], align='center'),
-
-    dbc.Row([
-        
-        dbc.Col([
-
-            html.H3("Period Poverty, Services, and Commercial Retailers", 
-            style={'text-align':'center'}),
-            
-            dcc.Graph(
-                id='scatter-centers',
-                figure=fig_centers_scatter
-            )
-        ], width=8)
     ], justify='center')
+
 
 ])
 
