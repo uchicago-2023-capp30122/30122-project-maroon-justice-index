@@ -8,7 +8,10 @@ Period poverty is defined as “limited or inadequate access to menstrual produc
  
 We wanted to understand this disparity geographically in Cook County, IL. We focused on factors such as income, public assistance usage, number of menstruating people, percent of income spent on rent, and proximity to community-based services. Using these variables, we created an index at the census tract level and visualized it on a map. We found that the risk of period poverty was concentrated in three areas – west side, south side and far south side. We also found that the number of community centers was correlated with our index- areas with less access to community-based services were, on average, at higher risk of period poverty. From this analysis, we were able to identify neighborhoods that would benefit the most from greater access to free menstrual care resources.
 
+
 ## How to run the Dash application:
+
+To visualize our results we built a Dash app, here are the steps to run the app:
 
 Setting up virtual environment using poetry
 
@@ -17,6 +20,9 @@ Once the repo is cloned, in the root directory 30122-project-maroon-justice-inde
 2.	Run *poetry shell* to activate the virtual environment
 3.	Run *python -m ppindex* to open the webapp
 
+The diagram below illustrates the basic structure for our project. To collect the data we needed for our analysis we used two different tables from the American Community Survey (ACS) API, maintained by the U.S. Census Bereau, and we built a webscraper to compile the addresses for community-based services and commercial retailers. Additionally, we personally reached out to period poverty alleviation organizations in Chicago to compile a list of community resources and we asked for conscent to include these resources in our map.
+
+Once we had our Census Tract demographic data and our service centers and retail data, we built a Python class using GeoPandas to identify the number of service centers within walking distance to the centroid of each Census Tract. This information was then incorporated into our period poverty index.
 
 <p align="center">
   <img src="https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/structure_diagram.jpeg" alt="GitHub Project Structure" style="display: block; margin: 0 auto;" width="500"/>
