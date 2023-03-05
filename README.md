@@ -39,7 +39,7 @@ The diagram below illustrates the basic structure for our project. To collect th
 Once we had our Census Tract demographic data and our service centers and retail data, we built a Python class using GeoPandas to identify the number of service centers within walking distance to the centroid of each Census Tract. This information was then incorporated into our period poverty index.
 
 <p align="center">
-  <img src="https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/structure_diagram.jpeg" alt="GitHub Project Structure" style="display: block; margin: 0 auto;" width="500"/>
+  <img src="https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/structure_diagram.png" alt="GitHub Project Structure" style="display: block; margin: 0 auto;" width="500"/>
 </p>
 
 
