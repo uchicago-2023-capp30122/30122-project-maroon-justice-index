@@ -17,8 +17,10 @@ import plotly.graph_objs as go
 import pandas as pd
 import geopandas as gpd
 import numpy as np
+import textwrap
 
-# import static graph maker functions
+# import dfs and static graph maker functions
+from .geocode_pp_partners_chicago import gdf
 from .dataviz.fig_index_map import create_idx_maps
 from .dataviz.fig_scatters import create_index_centers_scatter, create_income_population_scatter
 
@@ -43,8 +45,12 @@ fig_pop_scatter = create_income_population_scatter(L_FONT, LT_SIZE)
 # --------- interactive community centers map ------------
 
 joined = gpd.read_file("ppindex/src/comm_centers_neighborhoods.geojson")
-joined["lat"] = joined.geometry.y
-joined["lon"] = joined.geometry.x
+joined = joined[["Community Center", "Type", "Category", "Neighborhood", 
+                 "Address", "Contact", "Note", "gcode", "lat", "lon",
+                 "geometry"]]
+gdf = gdf.rename(columns={"Name":"Community Center"})
+joined = pd.concat([joined, gdf])
+# joined = joined.append(gdf, ignore_index = True)
 
 def create_cc_maps(df, lat, lon):
     '''
@@ -60,7 +66,8 @@ def create_cc_maps(df, lat, lon):
                         lon=lon, 
                         hover_name="Community Center",
                         hover_data={'Neighborhood': True, 'lat':False, 
-                                    'lon':False},
+                                    'lon':False,
+                                    'Address':True},
                         opacity=0.5,
                         color="Category",
                         color_discrete_sequence=px.colors.qualitative.Bold,
@@ -216,6 +223,35 @@ app.layout = dbc.Container([
     ], align='center'),
 
     dbc.Row([
+        
+        dbc.Col([
+
+            html.H3("Period Poverty, Services, and Commercial Retailers", 
+            style={'text-align':'center'}),
+            
+            dcc.Graph(
+                id='scatter-centers',
+                figure=fig_centers_scatter
+            ),
+            html.Br()
+        ], width=8)
+    ], justify='center'),
+
+    dbc.Row([
+        html.Br(),
+        dbc.Col([
+            html.P(["It is especially important to consider areas with high \
+            period poverty rates and large numbers of menstruating people. The \
+            graph below helped us identify tracts with a high number of \
+            menstruating people and low montly disposable incomes. For instance, \
+            the graph below highlights a few tracts within neighbourhoods like \
+            Riverdale, Washington Park, South Deering, Chatham, Humbolt Park, \
+            and Englewood, where additional resources could be greatly \
+            beneficial."])
+        ], width=12)        
+    ], align='center'),
+
+    dbc.Row([
         dbc.Col([
 
             html.H3('Menstruating People and Disposable Income', 
@@ -229,35 +265,8 @@ app.layout = dbc.Container([
             html.Br()
         ], width=8)
 
-    ], justify='center'),
-
-    dbc.Row([
-        html.Br(),
-        dbc.Col([
-            html.P(["It is especially important to consider areas with high \
-            period poverty rates and large numbers of menstruating people. The \
-            graph below helped us identify tracts with a high number of \
-            menstruating people and a high poverty index. For instance, the \
-            graph below highlights a few tracts within neighbourhoods like \
-            Riverdale, Washington Park, South Deering, Chatham, Humbolt Park, \
-            and Englewood, where additional resources could be greatly \
-            beneficial."])
-        ], width=12)        
-    ], align='center'),
-
-    dbc.Row([
-        
-        dbc.Col([
-
-            html.H3("Period Poverty, Services, and Commercial Retailers", 
-            style={'text-align':'center'}),
-            
-            dcc.Graph(
-                id='scatter-centers',
-                figure=fig_centers_scatter
-            )
-        ], width=8)
     ], justify='center')
+
 
 ])
 
