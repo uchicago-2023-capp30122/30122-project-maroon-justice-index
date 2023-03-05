@@ -28,7 +28,7 @@ Once the repo is cloned, in the root directory 30122-project-maroon-justice-inde
 
 Below is a map illustrating our resulting index for each census tract in Chicago. Hover over each census tract to view the index value, and the neighborhood each tract is located within.
 
-![Mapping Period Poverty across Cook County](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/map_image.png)
+![Mapping Period Poverty across Cook County](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/community%20centers_image1.png)
 
 
 ## Map of Neighbourhood Resources and Retail Centers
