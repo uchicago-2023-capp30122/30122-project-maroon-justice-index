@@ -11,13 +11,8 @@ Date: 3/3/2023
 from dash import Dash, html, dcc, Input, Output
 import dash_bootstrap_components as dbc
 import plotly.express as px
-import plotly.colors as colors
-from plotly.subplots import make_subplots
-import plotly.graph_objs as go
 import pandas as pd
 import geopandas as gpd
-import numpy as np
-import textwrap
 
 # import dfs and static graph maker functions
 from .geocode_pp_partners_chicago import gdf
@@ -127,7 +122,7 @@ app.layout = dbc.Container([
             spent on rent, and proximity to community-based services. Using \
             these variables, we created an index at the census tract level and \
             visualized it on a map. We found that the risk of period poverty \
-            was concentrated in three areas – west side, south side and far \
+            was concentrated in three areas: west side, south side and far \
             south side. We also found that the number of community centers was \
             correlated with our index: areas with less access to \
             community-based services were, on average, at higher risk of \
@@ -243,7 +238,7 @@ app.layout = dbc.Container([
             html.P(["It is especially important to consider areas with high \
             period poverty rates and large numbers of menstruating people. The \
             graph below helped us identify tracts with a high number of \
-            menstruating people and low montly disposable incomes. For instance, \
+            menstruating people and low monthly disposable incomes. For instance, \
             the graph below highlights a few tracts within neighbourhoods like \
             Riverdale, Washington Park, South Deering, Chatham, Humbolt Park, \
             and Englewood, where additional resources could be greatly \
@@ -265,7 +260,40 @@ app.layout = dbc.Container([
             html.Br()
         ], width=8)
 
-    ], justify='center')
+    ], justify='center'),
+
+    dbc.Row([
+        html.Br(),
+        dbc.Col([
+            html.P(["While working on this project we experienced a number of \
+            limitations. We found that many community organizations didn’t want \
+            their addresses published for different reasons. The organizations  \
+            shown in the community centers map include those publicly available \
+            in Illinois Department of Human Services (IDHS), and those who \
+            consented to be included."]),
+
+            html.P(["During our research and outreach to organizations, we also \
+            learned that homeless shelters, public schools and colleges/\
+            universities are required by the State of Illinois to provide free \
+            menstrual products. Due to capacity and time constraints, we were unable to \
+            include these. Additionally, including data on unhoused individuals \
+            is challenging—as granular data from the census takes several \
+            months to obtain, and we could not isolate the data by gender."]),
+
+            html.P(["In summary, we used income and community center locations \
+            as proxies for estimating risk for period poverty at the census \
+            tract level. Initially, we expected some variation in any given \
+            census tracts’ risk for period poverty based on residents’ income \
+            or proximity to community-services. Instead, we found that the \
+            locations of IDHS's community-based services, which serve high-need \
+            or low-income populations, were lacking in areas with a high period \
+            poverty index. We found these insights interesting, and we learned \
+            that there is much work to be done to completely understand the \
+            issue of period poverty and inform policy initiatives that aim to \
+            reduce the barriers to menstrual care."]),
+            html.Br()
+        ], width=12)        
+    ], align='center')
 
 
 ])

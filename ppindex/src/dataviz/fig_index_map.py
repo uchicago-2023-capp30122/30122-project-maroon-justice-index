@@ -9,6 +9,7 @@ import geopandas as gpd
 import pandas as pd
 import plotly.express as px
 import numpy as np
+import plotly.colors as colors
 
 def create_idx_maps(zoom, lat, lon, font_family, 
                     font_size, font_sub_size):
@@ -22,6 +23,8 @@ def create_idx_maps(zoom, lat, lon, font_family,
             lon (lon) longitude for displaying map
     output: choropleth map (plotly express class)
     '''
+    custom_reds = colors.make_colorscale(['#FFEEEE', '#C83652', '#722f37'])
+
     census_tracts = gpd.read_file("ppindex/src/boundaries_census_tracts_2010.geojson")
     df = pd.read_json("ppindex/src/index_w_neigh_names.json")
     df = df.rename(columns={'tract':'Census Tract', 'pp_index':'Period Poverty Index'})
@@ -31,9 +34,9 @@ def create_idx_maps(zoom, lat, lon, font_family,
         geojson = census_tracts, 
         locations = "Census Tract", 
         featureidkey="properties.tractce10",
-        color="Period Poverty Index", color_continuous_scale="amp", 
+        color="Period Poverty Index", color_continuous_scale=custom_reds, 
                range_color=(0, 1), 
-        mapbox_style="carto-positron", opacity=0.5,
+        mapbox_style="carto-positron", opacity=0.6,
         hover_name="neighborhood_name",
         center={"lat": lat, "lon": lon}, zoom=zoom)
 
@@ -53,6 +56,6 @@ def create_idx_maps(zoom, lat, lon, font_family,
             ypad=8,
             yanchor='middle'))
     fig.update_traces( # polygon border
-        marker_line_width=0.8, marker_line_color='white')
+        marker_line_width=0.5, marker_line_color='white')
 
     return fig
