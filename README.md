@@ -18,7 +18,7 @@ Once the repo is cloned, in the root directory 30122-project-maroon-justice-inde
 3.	Run *python -m ppindex* to open the webapp
 
 
-<img src="https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/structure_diagram.jpeg" alt="GitHub Project Structure" width="300"/>
+<img src="https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/structure_diagram.jpeg" alt="GitHub Project Structure" style="display: block; margin: 0 auto;" width="500"/>
 
 
 ## Period Poverty Cook County Map
