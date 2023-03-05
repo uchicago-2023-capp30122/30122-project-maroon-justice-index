@@ -37,7 +37,7 @@ It was important for us to incorporate existing community services and commercia
 
 The map below includes all the resources we scraped, and the organizations that consented to being added to the map. Choose your neighborhood from the dropdown on the left to find the resources closest to you.
 
-![Mapping Community Services and Retail Centers by Census Tract](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/community%20centers_image.png)
+![Mapping Community Services and Retail Centers by Census Tract](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/community%20centers_image.jpeg)
 
 
 ## Data Insights
