@@ -48,7 +48,7 @@ Once we had our Census Tract demographic data and our service centers and retail
 
 Below is a map illustrating our resulting index for each census tract in Chicago. In our Dash app, you can hover over each census tract to view the index value, and the neighborhood each tract is located within.
 
-![Mapping Period Poverty across Cook County](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/map_image.png)
+![Mapping Period Poverty across Cook County](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/map_image_new.png)
 
 
 ## Map of Neighbourhood Resources and Retail Centers
@@ -57,7 +57,7 @@ It was important for us to incorporate existing community services and commercia
 
 The map below includes all the resources we scraped, and the organizations that consented to being added to the map. In our Dash app, you can choose your neighborhood from the dropdown on the left to find the resources closest to you.
 
-![Mapping Community Services and Retail Centers by Census Tract](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/community%20centers_image1.png)
+![Mapping Community Services and Retail Centers by Census Tract](https://github.com/uchicago-capp122-spring23/30122-project-maroon-justice-index/blob/main/ppindex/assets/community%20centers_bigger.png)
 
 
 ## Data Insights
