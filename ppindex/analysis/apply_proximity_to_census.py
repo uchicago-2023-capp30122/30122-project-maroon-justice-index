@@ -2,11 +2,11 @@
 CAPP 122: Project Maroon Justice Index
 Jimena Salinas
 Code for applying the proximity_anlysis function
-to all the Census tracts and resourcer centers, and
+to all the Census tracts and resource centers, and
 updating the master analysis file
 '''
 
-from analysis.proximity import proximity_analysis
+from ppindex.analysis.proximity import proximity_analysis
 import geopandas as gpd
 import pandas as pd
 import geopandas as gpd
@@ -18,7 +18,7 @@ class CensusTractCentroids:
     and applies the proximity analysis function to estimate
     proximity to resource centers.
     """
-    DIRECTORY = "data"
+    DIRECTORY = "ppindex/data"
 
     def __init__(self):
         """
@@ -26,14 +26,15 @@ class CensusTractCentroids:
         all the Census tracts in Illinois.
         """
         self.tracts_geo = gpd.read_file(
-            "src/boundaries_census_tracts_2010.geojson")
+            "ppindex/src/boundaries_census_tracts_2010.geojson")
 
     def get_centroids(self):
         """
         This function uses the built-in GeoPandas 'centroid', 'x', and 'y
         attributes to obtain the centroids for each tract in the 
         GeoDataFrame
-
+        Inputs:
+            - None
         Returns:
             - Dictionary of coordinates by tract: (dict) a dictionary mapping
             each Illinois Census tract to a tuple with the latitude and 
@@ -50,7 +51,15 @@ class CensusTractCentroids:
 
     def apply_prox_to_census(self):
         """
-
+        This function calls the get_centroids method
+        to find the total number of resource centers
+        from each Census tract.
+        Inputs:
+            - None
+        Returns:
+            - A dictionary mapping each Census tract
+              to the total number of resource centers 
+              at a walking distance.
         """
         centroids_census = self.get_centroids()
         number_of_centers = {}
@@ -62,7 +71,14 @@ class CensusTractCentroids:
 
     def merge_dict_to_dataframe(self):
         """
-
+        This function calls the apply_prox_to_census method
+        and merges a dictionary containing census tracts mapped
+        to number of resources to the master analysis Pandas dataframe.
+        Inputs:
+            - None
+        Returns:
+            - A new Pandas dataframe with an additional column 
+            containing the number of resource centers per tract.
         """
         tract_centers_df = pd.DataFrame.from_dict(
             self.apply_prox_to_census(), orient='index', columns=['number_of_centers'])

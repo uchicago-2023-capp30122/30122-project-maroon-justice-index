@@ -103,13 +103,13 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             html.Br(),
-            html.P(["Period poverty is defined as “limited or inadequate \
-            access to menstrual products or menstrual health education as a \
-            result of financial constraints or negative socio-cultural stigmas \
-            associated with menstruation.” Period poverty can be harmful to \
-            one’s health, such as using products longer than recommended, and \
-            harmful to one's emotional well-being, such as missing work or school. \
-            Period poverty disproportionately affects those who are impoverished \
+            html.P(["Period poverty is defined as “limited or inadequate access \
+            to menstrual products or menstrual health education as a result of \
+            financial constraints or negative socio-cultural stigmas associated \
+            with menstruation.” Period poverty includes using unsanitized \
+            products or using products longer than recommended - and is harmful to \
+            one’s health and emotional well-being. The impacts, such such as missing \
+            work or school, disproportionately affect those who are impoverished \
             or experiencing homelessness."]),
         ], width=12)
     ], align='end'),
@@ -117,7 +117,7 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             html.P(["We wanted to understand this disparity geographically in \
-            Cook County, IL. We focused on factors such as income, public \
+            Chicago, IL. We focused on factors such as income, public \
             assistance usage, number of menstruating people, percent of income \
             spent on rent, and proximity to community-based services. Using \
             these variables, we created an index at the census tract level and \
@@ -132,7 +132,7 @@ app.layout = dbc.Container([
 
             html.P(["Below is a map illustrating our resulting index for each \
             census tract in Chicago. Hover over each census tract to view the \
-            index value, and the neighborhood each tract is located within."])
+            index value and the neighborhood each tract is located within."])
 
         ], width=12) 
     ], align='end'),
@@ -157,17 +157,19 @@ app.layout = dbc.Container([
             html.P(["It was important for us to incorporate existing community \
             services and commercial retailers providing period products into our \
             index. For people in need, having a community service nearby could \
-            ameliorate their lack of access to period products. To find existing \
-            resources around Chicago, we built a webscraper to compile \
-            the addresses for community-based services and commercial retailers, \
-            and reached out to period poverty alleviation organizations in Chicago \
+            ameliorate their lack of access to period products. In order to find \
+            existing resources around Chicago, we built a webscraper to compile \
+            addresses of community-based services and commercial retailers, \
+            and we reached out to period poverty alleviation organizations in Chicago \
             to understand the services offered and restrictions (if any) to access \
             period products."]),
 
-            html.P(["The map below includes all the resources we scraped, and \
-            the organizations that consented to being added to the map. Choose \
-            your neighborhood from the dropdown on the left to find the resources \
-            closest to you."])
+            html.P(["The map below includes all the resources we scraped, including \
+            the period poverty alleviation partner organizations that consented \
+            to being added to the map. Select your neighborhood from the dropdown \
+            menu on the left to find the resources closest to you. Click on the \
+            names of different categories in the map legend on the right to filter \
+            for the categories you wish to see."])
 
         ], width = 12, align='end') 
     ], align='end'),
