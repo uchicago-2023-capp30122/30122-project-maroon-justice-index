@@ -6,7 +6,7 @@ to all the Census tracts and resource centers, and
 updating the master analysis file
 '''
 
-from analysis.proximity import proximity_analysis
+from ppindex.analysis.proximity import proximity_analysis
 import geopandas as gpd
 import pandas as pd
 import geopandas as gpd
@@ -18,7 +18,7 @@ class CensusTractCentroids:
     and applies the proximity analysis function to estimate
     proximity to resource centers.
     """
-    DIRECTORY = "data"
+    DIRECTORY = "ppindex/data"
 
     def __init__(self):
         """
@@ -26,7 +26,7 @@ class CensusTractCentroids:
         all the Census tracts in Illinois.
         """
         self.tracts_geo = gpd.read_file(
-            "src/boundaries_census_tracts_2010.geojson")
+            "ppindex/src/boundaries_census_tracts_2010.geojson")
 
     def get_centroids(self):
         """
