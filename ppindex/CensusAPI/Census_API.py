@@ -14,7 +14,7 @@ class CensusAPI:
     """
     This class extracts US Census Data.
     """
-    DIRECTORY = "30122-project-maroon-justice-index/data"
+    DIRECTORY = "ppindex/data"
 
     def __init__(self, census_key):
         """
