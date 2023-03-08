@@ -8,6 +8,7 @@ a master JSON data file for analysis
 
 import requests
 import pandas as pd
+import creds
 
 
 class CensusAPI:
@@ -274,8 +275,9 @@ class CensusAPI:
 # Produce Data sets and save as JSON
 geo = 'tract:*'
 state = '17'
+API_key = creds.API_key
+api = CensusAPI(API_key)
 
-api = CensusAPI("7527e32c66997745264cf65a96efac91e01e1b5b")
 merged_df = api.get_data(geo, state)
 
 # export dataframe
