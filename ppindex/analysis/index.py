@@ -80,14 +80,23 @@ rent = census_df[["geo_id",
                   "rent_percent_15_19_9", 
                   "rent_percent_15_less"]]
 
-rent['weighted_avg'] = ((rent.rent_percent_35_more*37.5) + (rent.rent_percent_30_34_9*32.45) +\
-                        (rent.rent_percent_25_29_9*27.45) + (rent.rent_percent_20_24_9*22.45) +\
-                        (rent.rent_percent_15_19_9*17.45) + (rent.rent_percent_15_less*12.5)) / (rent.rent_percent_35_more+\
+# find average within census binning to apply as weights
+w1 = (35 + 40) / 2
+w2 = (25 + 29.9) / 2
+w3 = (15 + 19.9) / 2
+w4 = (30 + 34.9) / 2
+w5 = (20 + 24.9) / 2
+w6 = (15 + 10) / 2
+
+rent['weighted_avg'] = ((rent.rent_percent_35_more*w1) + (rent.rent_percent_30_34_9*w4) +\
+                        (rent.rent_percent_25_29_9*w2) + (rent.rent_percent_20_24_9*w5) +\
+                        (rent.rent_percent_15_19_9*w3) + (rent.rent_percent_15_less*w6)) / (rent.rent_percent_35_more+\
                                                                                                 rent.rent_percent_30_34_9+\
                                                                                                rent.rent_percent_25_29_9+\
                                                                                                rent.rent_percent_20_24_9+\
                                                                                                rent.rent_percent_15_19_9+\
                                                                                                rent.rent_percent_15_less)
+
 rent = rent.drop(columns=["rent_percent_35_more",
                           "rent_percent_30_34_9",
                           "rent_percent_25_29_9",
@@ -176,7 +185,9 @@ disposable_income_sex_age = pd.merge(disposable_income, sex_age_eligible, \
                                             'county',
                                             'tract'], how='left')
 
-disposable_income_sex_age['pp_index_raw'] = ((20 * disposable_income_sex_age.total_eligible_women)/\
+# estimated monthly cost of menstrual care products per month is $20
+menstrual_cost = 20
+disposable_income_sex_age['pp_index_raw'] = ((menstrual_cost * disposable_income_sex_age.total_eligible_women)/\
                                                 (disposable_income_sex_age.disposable_income_per_month * \
                                                         disposable_income_sex_age.percent_female_pop)) * 1000
 
