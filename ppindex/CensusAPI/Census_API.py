@@ -8,12 +8,18 @@ a master JSON data file for analysis
 
 import requests
 import pandas as pd
+
+# ! the file creds includes our API key (but this has not
+# been uploaded to GitHub), to obtain an
+# API key visit the U.S. Census Bureau page, obtaining
+# a key is completely free
 import creds
+ß
 
 
 class CensusAPI:
     """
-    This class extracts US Census Data.
+    This class extracts US Census Data.ß
     """
     DIRECTORY = "ppindex/data"
 
