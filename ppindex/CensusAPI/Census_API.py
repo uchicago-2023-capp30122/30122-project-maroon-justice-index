@@ -14,7 +14,6 @@ import pandas as pd
 # API key visit the U.S. Census Bureau page, obtaining
 # a key is completely free
 import creds
-ß
 
 
 class CensusAPI:
