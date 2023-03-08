@@ -9,10 +9,16 @@ a master JSON data file for analysis
 import requests
 import pandas as pd
 
+# ! the file creds includes our API key (but this has not
+# been uploaded to GitHub), to obtain an
+# API key visit the U.S. Census Bureau page, obtaining
+# a key is completely free
+import creds
+
 
 class CensusAPI:
     """
-    This class extracts US Census Data.
+    This class extracts US Census Data.ß
     """
     DIRECTORY = "ppindex/data"
 
@@ -274,8 +280,9 @@ class CensusAPI:
 # Produce Data sets and save as JSON
 geo = 'tract:*'
 state = '17'
+API_key = creds.API_key
+api = CensusAPI(API_key)
 
-api = CensusAPI("7527e32c66997745264cf65a96efac91e01e1b5b")
 merged_df = api.get_data(geo, state)
 
 # export dataframe
