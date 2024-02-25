@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["\".jibd\""]
 readme = "README.md"
-packages = [{include = "30122_project_maroon_justice_index"}]
+
 
 [tool.poetry.dependencies]
 python = "^3.8"
