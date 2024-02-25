@@ -10,7 +10,7 @@ from geopy.geocoders import Nominatim
 
 df = pd.read_json("ppindex/data/pp_partners_chicago.json")
 
-geolocator = Nominatim(timeout=10, user_agent='myGeolocator')
+geolocator = Nominatim(timeout=10, user_agent='maroon-justice-project')
 
 df['gcode'] = df['Address'].apply(geolocator.geocode)
 

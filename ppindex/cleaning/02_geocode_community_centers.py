@@ -11,16 +11,17 @@ Outputs: ppindex/data/geocoded_community_centers_chicago.csv
 
 import pandas as pd
 import geopandas as gpd
+import time
 from geopy.geocoders import Nominatim
 
 # read community centers filename and subset
 df = pd.read_json("ppindex/data/community_centers_chicago.json")
 
 # initialize nominatim geocoder
-geolocator = Nominatim(timeout=10, user_agent='myGeolocator')
+geolocator = Nominatim(user_agent = 'project-maroon-justice', timeout=7)
 
 # geocode address column
-df['gcode'] = df['Address'].apply(geolocator.geocode)
+df['gcode'] = df['Address'].apply(geocode_with_delay)
 
 # filter dataframe to remove NAs
 df_without_none = df.dropna(subset=['gcode'])
